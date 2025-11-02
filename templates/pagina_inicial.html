@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pagina_inicial.css') }}">
+
+    <style>
+        #alerta {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+        }
+        #alerta button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-weight: bold;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="alerta">
+        <span id="mensagem-alerta"></span>
+        <button onclick="document.getElementById('alerta').style.display='none'">Ok</button>
+    </div>
+
+    <h1>Bem vindo ao projeto</h1>
+    <div class="container">
+        <a href="{{ url_for('cadastro.cadastro')}}">INICIAR CONSULTA</a>
+    </div>
+
+    <script>
+      function mostrarAlerta(mensagem) {
+          const alerta = document.getElementById('alerta');
+          document.getElementById('mensagem-alerta').textContent = mensagem;
+          alerta.style.display = 'block';
+          setTimeout(() => { alerta.style.display = 'none'; }, 3000);
+      }
+
+      {% with messages = get_flashed_messages(with_categories=false) %}
+        {% if messages %}
+          mostrarAlerta("{{ messages[0] }}");
+        {% endif %}
+      {% endwith %}
+    </script>
+</body>
+</html>

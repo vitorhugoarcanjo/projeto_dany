@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pasta_consulta_medica/pagina_4.css') }}">
+
+</head>
+<body>
+    <h1>Avaliação Médica Básica</h1>
+
+    <form method="post">
+        <label>Analisar o pestanejar (piscar) do paciente</label><br>
+        
+        <input type="radio" id="pestanejar_muito" name="pestanejar" value="muito">
+        <label for="pestanejar_muito">Pisca muito</label><br>
+
+        <input type="radio" id="pestanejar_normal" name="pestanejar" value="normal" checked>
+        <label for="pestanejar_normal">Pisca</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>Analisar o deglutir (engasga durante a fala)</label><br>
+
+        <input type="radio" name="deglutir" value="sim" id="deglutir_sim"><label for="deglutir_sim">Sim</label>
+
+        <input type="radio" name="deglutir" value="nao" id="deglutir_nao" checked><label for="deglutir_nao">Não</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>Tem cialorréia (baba excessiva)?</label><br>
+
+        <input type="radio" name="cialorreia" value="sim" id="cialorreia_sim"><label for="cialorreia_sim">Sim</label>
+
+        <input type="radio" name="cialorreia" value="nao" id="cialorreia_nao" checked><label for="cialorreia_nao">Não</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>Pedir para o paciente pronunciar uma frase</label><br>
+
+        <input type="checkbox" id="lentidao_pronuncia" name="lentidao_pronuncia" value="sim"><label for="lentidao_pronuncia">Lentidão na pronúncia</label><br>
+        <input type="checkbox" id="gagueira" name="gagueira" value="sim"><label for="gagueira">Gagueira</label><br>
+        <input type="checkbox" id="diminuicao_tom" name="diminuicao_tom" value="sim"><label for="diminuicao_tom">Diminuição do tom</label><br>
+        <input type="checkbox" id="dificuldade_mandibular" name="dificuldade_mandibular" value="sim"><label for="dificuldade_mandibular">Dificuldade da articulação mandibular</label><br><br>
+
+        <button type="submit">Próxima</button>
+    </form>
+
+</body>
+</html>

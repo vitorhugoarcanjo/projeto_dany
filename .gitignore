@@ -1,0 +1,9 @@
+# Ambiente virtual
+venv/
+env/
+__pycache__/
+*.pyc
+instance/
+*.sqlite3
+.DS_Store
+*.db

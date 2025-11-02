@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pasta_paciente/cadastro_paciente.css') }}">
+    <title>Cadastro Paciente</title>
+    
+</head>
+<body>
+    <h1>Cadastro de Paciente</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li style="color: {{ 'red' if category == 'error' else 'green' }};">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post">
+        <label>Nome</label><br>
+        <input type="text" name="nome" required value="{{ nome|default('') }}"><br><br>
+
+        <label>CPF</label><br>
+        <input type="text" name="cpf" required pattern="\d{3}\.\d{3}\.\d{3}\-\d{2}" placeholder="000.000.000-00" value="{{ cpf | default('') }}"><br><br>
+
+        <label>Telefone</label><br>
+        <input type="tel" name="telefone" placeholder="(00) 00000-0000" value="{{ telefone|default('') }}"><br><br>
+
+        <button type="submit" id="btn-cadastrar">Cadastrar</button>
+        <button type="button" id="btn-iniciar" style="display:none;">Iniciar Atendimento</button>
+    </form>
+</body>
+
+<script>
+document.querySelector('input[name="cpf"]').addEventListener('blur', function() {
+    const cpf = this.value;
+
+    fetch('/cadastro/verificar_cpf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cpf: cpf })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.existe) {
+            alert('CPF já cadastrado! Dados carregados no formulário.');
+
+            document.querySelector('input[name="nome"]').value = data.nome || '';
+            document.querySelector('input[name="telefone"]').value = data.telefone || '';
+
+            // Mostrar botão "Iniciar" e esconder "Cadastrar"
+            document.getElementById('btn-cadastrar').style.display = 'none';
+            const btnIniciar = document.getElementById('btn-iniciar');
+            btnIniciar.style.display = 'inline-block';
+
+            // Configurar clique do botão iniciar para redirecionar
+            btnIniciar.onclick = function() {
+                window.location.href = '/pagina_1';  // Ajuste para rota correta do atendimento
+            };
+
+        } else {
+            alert('CPF não encontrado. Continue com o cadastro.');
+
+            document.querySelector('input[name="nome"]').value = '';
+            document.querySelector('input[name="telefone"]').value = '';
+
+            // Mostrar botão "Cadastrar" e esconder "Iniciar"
+            document.getElementById('btn-cadastrar').style.display = 'inline-block';
+            document.getElementById('btn-iniciar').style.display = 'none';
+        }
+    });
+});
+
+
+</script>
+
+</html>

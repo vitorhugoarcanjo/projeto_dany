@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pasta_consulta_medica/pagina_6.css') }}">
+    <title>Atividades Diárias e Humor</title>
+</head>
+<body>
+    <h1>Atividades Diárias e Humor</h1>
+    <form method="post">
+
+        <h3>Atividades Instrumentais de Vida Diária (AIVDs)</h3>
+        <label>Tem dificuldades em manusear dinheiro ou erra pagamentos?</label><br>
+        <input type="radio" name="dificuldades_aivds" value="sim" id="aivds_sim"><label for="aivds_sim">Sim</label>
+        <input type="radio" name="dificuldades_aivds" value="nao" id="aivds_nao" checked><label for="aivds_nao">Não</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>Tem dificuldades em fazer compras?</label><br>
+        <input type="radio" name="compras" value="sim" id="compras_sim"><label for="compras_sim">Sim</label>
+        <input type="radio" name="compras" value="nao" id="compras_nao" checked><label for="compras_nao">Não</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>O rendimento no trabalho diminuiu ou foi afastado?</label><br>
+        <input type="radio" name="rendimento_trabalho" value="sim" id="trabalho_sim"><label for="trabalho_sim">Sim</label>
+        <input type="radio" name="rendimento_trabalho" value="nao" id="trabalho_nao" checked><label for="trabalho_nao">Não</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>Erra na preparação de refeições?</label><br>
+        <input type="radio" name="preparacao_refeicoes" value="sim" id="refeicoes_sim"><label for="refeicoes_sim">Sim</label>
+        <input type="radio" name="preparacao_refeicoes" value="nao" id="refeicoes_nao" checked><label for="refeicoes_nao">Não</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <h3>Atividades Básicas de Vida Diária (ABVDs)</h3>
+        <label>É capaz de realizar de forma independente e autônoma alguma das seguintes atividades:</label><br>
+        <label><input type="checkbox" name="atividades_basicas" value="Vestir-se"> Vestir-se</label><br>
+        <label><input type="checkbox" name="atividades_basicas" value="Banho"> Banho</label><br>
+        <label><input type="checkbox" name="atividades_basicas" value="Higiene"> Higiene</label><br>
+        <label><input type="checkbox" name="atividades_basicas" value="Alimentar-se"> Alimentar-se</label><br>
+        <label><input type="checkbox" name="atividades_basicas" value="Transferência"> Transferência</label><br>
+        <label><input type="checkbox" name="atividades_basicas" value="Continência"> Continência</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <h3>Humor</h3>
+        <label>Parece triste ou desanimado? Chora facilmente?</label><br>
+        <input type="radio" name="humor_tristeza" value="sim" id="tristeza_sim"><label for="tristeza_sim">Sim</label>
+        <input type="radio" name="humor_tristeza" value="nao" id="tristeza_nao" checked><label for="tristeza_nao">Não</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>Está mais irritado ou impaciente?</label><br>
+        <input type="radio" name="humor_ira" value="sim" id="ira_sim"><label for="ira_sim">Sim</label>
+        <input type="radio" name="humor_ira" value="nao" id="ira_nao" checked><label for="ira_nao">Não</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>Está se isolando, não convivendo com os outros?</label><br>
+        <input type="radio" name="humor_isolamento" value="sim" id="isolamento_sim"><label for="isolamento_sim">Sim</label>
+        <input type="radio" name="humor_isolamento" value="nao" id="isolamento_nao" checked><label for="isolamento_nao">Não</label><br><br>
+
+        <button type="submit">Próxima</button>
+    </form>
+</body>
+</html>

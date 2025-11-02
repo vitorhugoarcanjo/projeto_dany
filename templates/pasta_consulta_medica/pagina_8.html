@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pasta_consulta_medica/pagina_8.css') }}">
+    <title>Sintomas Psicóticos, Apetite e Sono</title>
+</head>
+<body>
+    <h1>Sintomas Psicóticos, Apetite e Sono</h1>
+    <form method="post">
+
+        <h3>Delírios</h3>
+        <label>Acredita em coisas que não são reais?</label><br>
+        <input type="radio" name="delirios" value="sim" id="delirios_sim"><label for="delirios_sim">Sim</label>
+        <input type="radio" name="delirios" value="nao" id="delirios_nao" checked><label for="delirios_nao">Não</label><br><br>
+
+        <label>Relata ouvir vozes?</label><br>
+        <input type="radio" name="ouvir_vozes" value="sim" id="ouvir_vozes_sim"><label for="ouvir_vozes_sim">Sim</label>
+        <input type="radio" name="ouvir_vozes" value="nao" id="ouvir_vozes_nao" checked><label for="ouvir_vozes_nao">Não</label><br><br>
+
+        <label>Conversa sozinho?</label><br>
+        <input type="radio" name="conversa_sozinho" value="sim" id="conversa_sozinho_sim"><label for="conversa_sozinho_sim">Sim</label>
+        <input type="radio" name="conversa_sozinho" value="nao" id="conversa_sozinho_nao" checked><label for="conversa_sozinho_nao">Não</label><br><br>
+
+        <label>Vê pessoas ou animais que não são vistos pelos outros?</label><br>
+        <input type="radio" name="ver_coisas" value="sim" id="ver_coisas_sim"><label for="ver_coisas_sim">Sim</label>
+        <input type="radio" name="ver_coisas" value="nao" id="ver_coisas_nao" checked><label for="ver_coisas_nao">Não</label><br><br>
+
+        <h3>Apetite</h3>
+        <label>Apresentou alguma mudança no hábito alimentar?</label><br>
+        <input type="radio" name="mudanca_apetite" value="sim" id="mudanca_apetite_sim"><label for="mudanca_apetite_sim">Sim</label>
+        <input type="radio" name="mudanca_apetite" value="nao" id="mudanca_apetite_nao" checked><label for="mudanca_apetite_nao">Não</label><br><br>
+
+        <label>Mudou a preferência alimentar (p.e., passou a ter preferência por doces)?</label><br>
+        <input type="radio" name="mudanca_preferencia" value="sim" id="mudanca_preferencia_sim"><label for="mudanca_preferencia_sim">Sim</label>
+        <input type="radio" name="mudanca_preferencia" value="nao" id="mudanca_preferencia_nao" checked><label for="mudanca_preferencia_nao">Não</label><br><br>
+
+        <h3>Sono</h3>
+        <label>Tem dificuldade de iniciar ou manter o sono?</label><br>
+        <input type="radio" name="dificuldades_sono" value="sim" id="dificuldades_sono_sim"><label for="dificuldades_sono_sim">Sim</label>
+        <input type="radio" name="dificuldades_sono" value="nao" id="dificuldades_sono_nao" checked><label for="dificuldades_sono_nao">Não</label><br><br>
+
+        <label>Fala ou se movimenta no sono como se estivesse acordado?</label><br>
+        <input type="radio" name="movimentos_sono" value="sim" id="movimentos_sono_sim"><label for="movimentos_sono_sim">Sim</label>
+        <input type="radio" name="movimentos_sono" value="nao" id="movimentos_sono_nao" checked><label for="movimentos_sono_nao">Não</label><br><br>
+
+        <label>Tem roncos? Acorda fadigado?</label><br>
+        <input type="radio" name="roncos" value="sim" id="roncos_sim"><label for="roncos_sim">Sim</label>
+        <input type="radio" name="roncos" value="nao" id="roncos_nao" checked><label for="roncos_nao">Não</label><br><br>
+
+        <label>Tem sonolência diurna?</label><br>
+        <input type="radio" name="sonolencia_diurna" value="sim" id="sonolencia_diurna_sim"><label for="sonolencia_diurna_sim">Sim</label>
+        <input type="radio" name="sonolencia_diurna" value="nao" id="sonolencia_diurna_nao" checked><label for="sonolencia_diurna_nao">Não</label><br><br>
+
+        <button type="submit">Finalizar</button>
+    </form>
+</body>
+</html>

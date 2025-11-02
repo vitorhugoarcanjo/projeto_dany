@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pasta_consulta_medica/pagina_2.css') }}">
+
+</head>
+
+<body>
+    <h1>Hábitos e Rotina de Sono</h1>
+
+        <form method="post">
+        <label><input type="checkbox" name="fuma" value="sim"> Fuma</label><br>
+        <label><input type="checkbox" name="bebe" value="sim"> Bebe</label><br>
+        <label><input type="checkbox" name="drogas" value="sim"> Uso de drogas</label><br>
+        <label><input type="checkbox" name="remedios" value="sim"> Remédios controlados</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>Dorme em média quantas horas de sono?</label><br>
+        <input type="number" name="horas_sono" min="0" max="24"><br><br>
+
+        <label>Tem insônia?</label><br>
+        <input type="radio" name="insonia" value="sim" id="insonia_sim"><label for="insonia_sim">Sim</label>
+
+        <input type="radio" name="insonia" value="nao" id="insonia_nao" checked><label for="insonia_nao">Não</label><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <label>Realiza atividade física?</label><br>
+        <input type="radio" name="atividade" value="sim" id="atividade_sim"><label for="atividade_sim">Sim</label>
+
+        <input type="radio" name="atividade" value="nao" id="atividade_nao" checked><label for="atividade_nao">Não</label><br>
+
+        <label>Qual?</label>
+        <input type="text" name="frequencia"><br><br>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+        <button type="submit">Próxima</button>
+    </form>
+</body>
+</html>
