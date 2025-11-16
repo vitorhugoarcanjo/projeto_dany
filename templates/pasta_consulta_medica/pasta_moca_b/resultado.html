@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resultado - MoCA-B</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pasta_consulta_medica/pagina_1.css') }}" />
+    <style>
+        .resultado-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+        }
+        
+        .card-resultado {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .card-resultado.normal {
+            border-color: #27ae60;
+            background: #f8fff9;
+        }
+        
+        .card-resultado.leve {
+            border-color: #f39c12;
+            background: #fffbf0;
+        }
+        
+        .card-resultado.demencia_leve {
+            border-color: #e74c3c;
+            background: #fff5f5;
+        }
+        
+        .card-resultado.demencia_grave {
+            border-color: #c0392b;
+            background: #ffeaea;
+        }
+        
+        .pontuacao {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        
+        .interpretacao {
+            font-size: 1.3em;
+            margin: 15px 0;
+            color: #34495e;
+        }
+        
+        .data-aplicacao {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .acoes {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-secundario {
+            background: #95a5a6;
+        }
+        
+        .btn-secundario:hover {
+            background: #7f8c8d;
+        }
+        
+        .info-adicional {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="resultado-container">
+        <h1>Resultado - Montreal Cognitive Assessment (MoCA-B)</h1>
+        
+        {% if resultado %}
+        <div class="card-resultado {{ resultado.classificacao|default('normal') }}">
+            <h2>Pontuação Total: <span class="pontuacao">{{ resultado.pontuacao_total }}/30</span></h2>
+            <div class="interpretacao">
+                <strong>Interpretação:</strong> {{ resultado.interpretacao }}
+            </div>
+            <div class="data-aplicacao">
+                <small>Data da aplicação: {{ resultado.data_aplicacao }}</small>
+            </div>
+        </div>
+
+        <div class="info-adicional">
+            <h3>Informações sobre a Pontuação:</h3>
+            <ul>
+                <li><strong>26-30 pontos:</strong> Cognição normal</li>
+                <li><strong>18-25 pontos:</strong> Comprometimento cognitivo leve</li>
+                <li><strong>10-17 pontos:</strong> Demência leve</li>
+                <li><strong>0-9 pontos:</strong> Demência moderada/grave</li>
+            </ul>
+            <p><em>Nota: A pontuação inclui ajustes por escolaridade quando aplicável.</em></p>
+        </div>
+
+        <div class="acoes">
+            <a href="{{ url_for('moca_b.aplicar_moca_b') }}" class="btn">Aplicar Novamente</a>
+            <a href="{{ url_for('cadastro.cadastro') }}" class="btn btn-secundario">Novo Paciente</a>
+            <a href="{{ url_for('pagina_inicial.pagina_inicial') }}" class="btn btn-secundario">Página Inicial</a>
+        </div>
+        
+        {% else %}
+        <div class="card-resultado">
+            <h2>Nenhum resultado encontrado</h2>
+            <p>Não foi possível encontrar os dados do teste MoCA-B.</p>
+            <div class="acoes">
+                <a href="{{ url_for('moca_b.aplicar_moca_b') }}" class="btn">Fazer Teste MoCA-B</a>
+                <a href="{{ url_for('pagina_inicial.pagina_inicial') }}" class="btn btn-secundario">Voltar</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

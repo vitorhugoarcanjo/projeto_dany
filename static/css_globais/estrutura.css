@@ -1,86 +1,278 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-
-/* Fundo geral */
-body {
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
-    color: #333;
-}
-
 /* Bloco principal */
 form {
     background-color: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    max-width: 600px;
-    margin: auto;
+    padding: 30px 35px;
+    border-radius: 14px;
+    box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+    max-width: 700px;
+    margin: 35px auto 55px;
 }
 
-/* Titulos */
+/* Títulos */
 h1 {
     text-align: center;
-    color: #2c3e50;
+    color: #1a2732;
+    font-weight: 700;
+    font-size: 29px;
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-h3 {
+h2 {
+    color: #2e4057;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 21px;
+    border-bottom: 2px solid #a4b0be;
+    padding-bottom: 8px;
+}
+
+.dados-paciente {
+    background: #f0f4fb;
+    border: 1.5px solid #ced6e0;
+    border-radius: 8px;
+    padding: 14px 25px;
+    margin-bottom: 40px;
+}
+
+.dados-paciente h2 {
+    border-bottom: none;
+    margin-bottom: 5px;
+    color: #276468;
+}
+
+fieldset {
+    border: none;
+    margin-bottom: 36px;
+    padding: 0;
+}
+
+legend {
+    background: #dde7fa;
+    color: #1d3457;
+    font-weight: bold;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+    padding: 6px 15px;
+    border-radius: 7px;
+    margin-bottom: 18px;
+    border: 1px solid #cdd0e5;
+    margin-left: 0;
+    margin-right: 0;
+    display: inline-block;
+}
+
+.flex-row {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 19px;
+    align-items: flex-end;
+    background-color: #f7f9fb;
+    border-radius: 6px;
+    padding: 11px 13px 12px 13px;
+    border: 1px solid #e3e3f6;
+}
+
+.flex-item {
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.flex-item.pontuacao {
+    flex: 0 0 88px;
+    max-width: 88px;
+}
+
+.flex-item label {
+    margin-bottom: 5px;
+    font-weight: 600;
     color: #34495e;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 6px;
-    margin-top: 20px;
+    font-size: 14px;
+    letter-spacing: 0.01em;
 }
 
-/* Para alinhar rádio e texto na mesma linha */
-label {
-    display: inline-flex;
-    align-items: center;
-    margin: 6px 10px 6px 0;
-    cursor: pointer;
-}
-
-/* Pequeno ajuste para o input ao lado do texto */
-input[type="radio"], input[type="checkbox"] {
-    margin-right: 6px;
-    vertical-align: middle;
-}
-
-/* Inputs & Textareas */
 input[type="text"],
 input[type="number"],
 textarea {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #bbb;
-    border-radius: 4px;
+    padding: 7px 10px;
+    border: 1.2px solid #abb8c3;
+    border-radius: 6px;
     box-sizing: border-box;
     font-size: 14px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    transition: border-color 0.3s ease;
+    resize: vertical;
 }
 
-/* Botões */
+textarea {
+    min-height: 38px;
+    max-height: 68px;
+    font-size: 13.5px;
+}
+
+input[type="number"] {
+    width: 100%;
+    max-width: 55px;
+    height: 40px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    padding-right: 0;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
 button {
     background-color: #3498db;
     color: white;
-    padding: 12px 20px;
+    padding: 14px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-    display: block;
+    font-size: 18px;
+    margin-top: 30px;
     width: 100%;
-    transition: background-color 0.3s ease;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 8px rgba(20,60,130,0.07);
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #2980b9;
 }
 
-/* Radios e checkboxes alinhados */
-input[type="radio"],
-input[type="checkbox"] {
-    vertical-align: middle;
+/* Estilos para legendas informativas */
+.legenda-informativa {
+    color: #888;
+    font-size: 13px;
+}
+
+/* Estilos para rótulos de pontos com cor clara */
+.rotulo-pontos-claro {
+    color: #eee;
+}
+
+/* Estilos para rótulos de pontos ocultos */
+.rotulo-pontos-oculto {
+    color: #fff;
+    visibility: hidden;
+}
+
+/* Estilos para texto pequeno com cor específica */
+.texto-pequeno-cor {
+    color: #257;
+}
+
+/* Estilos para campos de pontuação */
+.campo-pontuacao {
+    width: 100%;
+    max-width: 55px;
+    height: 40px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    padding-right: 0;
+}
+
+/* Estilos para espaçamento superior */
+.margem-superior {
+    margin-top: 9px;
+}
+
+
+
+
+/* Estilos para o container do checkbox */
+.checkbox-container {
+    margin: 15px 0;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Estilos para os checkboxes personalizados */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #495057;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+
+.checkbox-label:hover {
+    background-color: #e9ecef;
+    border-color: #3498db;
+}
+
+.checkbox-animal {
+    display: none;
+}
+
+.checkbox-animal:checked + .checkmark {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.checkbox-animal:checked + .checkmark:after {
+    display: block;
+}
+
+.checkmark {
+    position: relative;
+    height: 18px;
+    width: 18px;
+    background-color: white;
+    border: 2px solid #adb5bd;
+    border-radius: 3px;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Estilo para checkbox selecionado */
+.checkbox-animal:checked ~ span:last-child {
+    color: #3498db;
+    font-weight: 600;
+}
+
+.checkbox-label.selected {
+    background-color: #e3f2fd;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }

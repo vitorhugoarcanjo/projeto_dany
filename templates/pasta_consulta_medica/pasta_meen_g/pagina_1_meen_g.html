@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mini Exame do Estado Mental (MEEM-g)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pasta_consulta_medica/pagina_1.css') }}" />
+</head>
+<body>
+<h1>Mini Exame do Estado Mental (MEEM-g)</h1>
+
+<div class="dados-paciente">
+    <h2>Paciente:</h2>
+    <p><strong>Nome:</strong> {{ paciente[0] }}</p>
+    <p><strong>Data de nascimento:</strong> {{ paciente[3] }}</p>
+</div>
+
+<form method="post">
+    <fieldset>
+        <legend>Solicitar que o(a) paciente diga o seu nome <span class="legenda-informativa">(máx. 6 pontos: até 3 cada campo)</span></legend>
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="obs_nome_primeiro">Anotações do médico:</label>
+                <textarea id="obs_nome_primeiro" name="obs_nome_primeiro" rows="2" placeholder="Comentários sobre o primeiro nome (opcional)"></textarea>
+            </div>
+            <div class="flex-item pontuacao">
+                <label for="nome_primeiro">Pontos (0-3)</label>
+                <input type="number" id="nome_primeiro" name="nome_primeiro" min="0" max="3" required class="campo-pontuacao">
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="obs_nome_ultimo">Anotações do médico:</label>
+                <textarea id="obs_nome_ultimo" name="obs_nome_ultimo" rows="2" placeholder="Comentários sobre o último nome (opcional)"></textarea>
+            </div>
+            <div class="flex-item pontuacao">
+                <label for="nome_ultimo">Pontos (0-3)</label>
+                <input type="number" id="nome_ultimo" name="nome_ultimo" min="0" max="3" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Data de nascimento <span class="legenda-informativa">(máx. 2 pontos)</span></legend>
+        <div class="flex-row">
+            <div class="flex-item"><p><strong>Data de nascimento:</strong> {{ paciente[3] }}</p></div>
+            <div class="flex-item pontuacao">
+                <label for="data_nascimento">Pontos (0-2)</label>
+                <input type="number" id="data_nascimento" name="data_nascimento" min="0" max="2" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Repita as palavras <span class="legenda-informativa">(máx. 3 pontos: 1 por palavra)</span></legend>
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="palavra_passaro">Pássaro</label>
+            </div>
+            <div class="flex-item pontuacao">
+                <label for="palavra_passaro" class="rotulo-pontos-claro">Pontos</label>
+                <input type="number" id="palavra_passaro" name="palavra_passaro" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="palavra_casa">Casa</label>
+            </div>
+            <div class="flex-item pontuacao">
+                <input type="number" id="palavra_casa" name="palavra_casa" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="palavra_sombrinha">Sombrinha</label>
+            </div>
+            <div class="flex-item pontuacao">
+                <input type="number" id="palavra_sombrinha" name="palavra_sombrinha" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Siga as instruções <span class="legenda-informativa">(máx. 4 pontos: até 2 cada item)</span></legend>
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="instrucao_mao">Levante a sua mão</label>
+            </div>
+            <div class="flex-item pontuacao">
+                <label for="instrucao_mao" class="rotulo-pontos-claro">Pontos</label>
+                <input type="number" id="instrucao_mao" name="instrucao_mao" min="0" max="2" required class="campo-pontuacao">
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="instrucao_olhos">Feche os seus olhos</label>
+            </div>
+            <div class="flex-item pontuacao">
+                <input type="number" id="instrucao_olhos" name="instrucao_olhos" min="0" max="2" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Nomeação de objetos simples <span class="legenda-informativa">(máx. 3 pontos)</span></legend>
+        <div class="flex-row">
+            <div class="flex-item"><label for="nomeacao_caneta">Caneta</label></div>
+            <div class="flex-item pontuacao">
+                <input type="number" id="nomeacao_caneta" name="nomeacao_caneta" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item"><label for="nomeacao_relogio">Relógio</label></div>
+            <div class="flex-item pontuacao">
+                <input type="number" id="nomeacao_relogio" name="nomeacao_relogio" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item"><label for="nomeacao_sapato">Sapato</label></div>
+            <div class="flex-item pontuacao">
+                <input type="number" id="nomeacao_sapato" name="nomeacao_sapato" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Desenhe o círculo <span class="legenda-informativa">(máx. 1 ponto)</span></legend>
+        <div class="flex-row">
+            <div class="flex-item"></div>
+            <div class="flex-item pontuacao">
+                <label for="desenhe_circulo" class="rotulo-pontos-oculto">Pontos</label>
+                <input type="number" id="desenhe_circulo" name="desenhe_circulo" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Cópia de um quadrado <span class="legenda-informativa">(máx. 1 ponto)</span></legend>
+        <div class="flex-row">
+            <div class="flex-item"></div>
+            <div class="flex-item pontuacao">
+                <label for="copia_quadrado" class="rotulo-pontos-oculto">Pontos</label>
+                <input type="number" id="copia_quadrado" name="copia_quadrado" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Escrever o nome <span class="legenda-informativa">(máx. 4 pontos: até 2 cada campo)</span></legend>
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="obs_escrever_nome_primeiro">Anotações do médico:</label>
+                <textarea id="obs_escrever_nome_primeiro" name="obs_escrever_nome_primeiro" rows="2" placeholder="Comentários sobre a escrita do primeiro nome (opcional)"></textarea>
+            </div>
+            <div class="flex-item pontuacao">
+                <label for="escrever_nome_primeiro">Pontos (0-2)</label>
+                <input type="number" id="escrever_nome_primeiro" name="escrever_nome_primeiro" min="0" max="2" required class="campo-pontuacao">
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="obs_escrever_nome_ultimo">Anotações do médico:</label>
+                <textarea id="obs_escrever_nome_ultimo" name="obs_escrever_nome_ultimo" rows="2" placeholder="Comentários sobre a escrita do último nome (opcional)"></textarea>
+            </div>
+            <div class="flex-item pontuacao">
+                <label for="escrever_nome_ultimo">Pontos (0-2)</label>
+                <input type="number" id="escrever_nome_ultimo" name="escrever_nome_ultimo" min="0" max="2" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Fluência de animais <span class="legenda-informativa">(máx. 3 pontos)</span></legend>
+        <small class="texto-pequeno-cor">1-2 animais = 1 ponto | 3-4 = 2 pontos | mais de 4 = 3 pontos</small>
+        
+
+        <div class="flex-row margem-superior">
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" data-pontos="1">
+                    <span class="checkmark"></span>
+                    1-2 animais
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" data-pontos="2">
+                    <span class="checkmark"></span>
+                    3-4 animais
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" data-pontos="3">
+                    <span class="checkmark"></span>
+                    5+ animais
+                </label>
+            </div>
+            
+            <div class="flex-item"></div>
+            <div class="flex-item pontuacao">
+                <label for="fluencia_animais" class="rotulo-pontos-oculto">Pontos</label>
+                <input type="number" id="fluencia_animais" name="fluencia_animais" min="0" max="3" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Soletre a palavra "BOI" <span class="legenda-informativa">(máx. 3 pontos)</span></legend>
+        <div class="flex-row">
+            <div class="flex-item"><label for="soletrar_b">B</label></div>
+            <div class="flex-item pontuacao">
+                <input type="number" id="soletrar_b" name="soletrar_b" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item"><label for="soletrar_o">O</label></div>
+            <div class="flex-item pontuacao">
+                <input type="number" id="soletrar_o" name="soletrar_o" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item"><label for="soletrar_i">I</label></div>
+            <div class="flex-item pontuacao">
+                <input type="number" id="soletrar_i" name="soletrar_i" min="0" max="1" required class="campo-pontuacao">
+            </div>
+        </div>
+    </fieldset>
+
+    <button type="submit">Próxima</button>
+</form>
+</body>
+</html>

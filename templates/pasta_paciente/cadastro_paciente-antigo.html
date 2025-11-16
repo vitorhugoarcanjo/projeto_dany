@@ -30,8 +30,6 @@
         <label>Telefone</label><br>
         <input type="tel" name="telefone" placeholder="(00) 00000-0000" value="{{ telefone|default('') }}"><br><br>
 
-        <label>Data de nascimento</label><br>
-        <input type="date" name="data_nascimento" value="{{ data_nascimento|default('') }}"><br><br>
 
         <button type="submit" id="btn-cadastrar">Cadastrar</button>
         <button type="button" id="btn-iniciar" style="display:none;">Iniciar Atendimento</button>
@@ -54,24 +52,15 @@ document.querySelector('input[name="cpf"]').addEventListener('blur', function() 
 
             document.querySelector('input[name="nome"]').value = data.nome || '';
             document.querySelector('input[name="telefone"]').value = data.telefone || '';
-            if (data.data_nascimento) {
-                document.querySelector('input[name="data_nascimento"]').value = data.data_nascimento;
-            }
 
             // Mostrar botão "Iniciar" e esconder "Cadastrar"
             document.getElementById('btn-cadastrar').style.display = 'none';
             const btnIniciar = document.getElementById('btn-iniciar');
             btnIniciar.style.display = 'inline-block';
 
-            // Configurar clique do botão iniciar para redirecionar DINAMICAMENTE
+            // Configurar clique do botão iniciar para redirecionar
             btnIniciar.onclick = function() {
-                // Se veio de um teste específico, redireciona pra ele
-                if (data.redirect_url) {
-                    window.location.href = data.redirect_url;
-                } else {
-                    // Se não, vai pro MEEM-G como padrão
-                    window.location.href = '/meem_g/';
-                }
+                window.location.href = '/pagina_1';  // Ajuste para rota correta do atendimento
             };
 
         } else {
@@ -79,16 +68,11 @@ document.querySelector('input[name="cpf"]').addEventListener('blur', function() 
 
             document.querySelector('input[name="nome"]').value = '';
             document.querySelector('input[name="telefone"]').value = '';
-            document.querySelector('input[name="data_nascimento"]').value = '';
 
             // Mostrar botão "Cadastrar" e esconder "Iniciar"
             document.getElementById('btn-cadastrar').style.display = 'inline-block';
             document.getElementById('btn-iniciar').style.display = 'none';
         }
-    })
-    .catch(error => {
-        console.error('Erro ao verificar CPF:', error);
-        alert('Erro ao verificar CPF. Tente novamente.');
     });
 });
 

@@ -35,24 +35,51 @@
         <button onclick="document.getElementById('alerta').style.display='none'">Ok</button>
     </div>
 
-    <h1>Bem vindo ao projeto</h1>
-    <div class="container">
-        <a href="{{ url_for('cadastro.cadastro')}}">INICIAR CONSULTA</a>
+    <h1>Bem vindo ao ConectaPrev</h1>
+
+    <div class="container_sobre">
+        <p><strong>Sobre o site:</strong><br>O site ConectaPrev foi desenvolvido com o objetivo de facilitar o rastreamento precoce do Parkinson e do Alzheimer, duas das doenças neurodegenerativas mais comuns e que afetam milhões de pessoas em todo o mundo. A plataforma busca promover a detecção antecipada de sinais e sintomas, contribuindo para o acompanhamento, prevenção e melhoria da qualidade de vida dos pacientes e seus familiares.
+    <br><br>Por meio de ferramentas interativas e questionários de avaliação baseados em evidências científicas, o site permite que profissionais da saúde identifiquem 
+    indicadores de risco para o cuidado e acompanhamento médico. O ConectaPrev tem como missão tornar o rastreamento mais acessível, rápido e confiável, unindo tecnologia e saúde para apoiar o diagnóstico e o tratamento dessas condições neurológicas.</p>
     </div>
 
-    <script>
-      function mostrarAlerta(mensagem) {
-          const alerta = document.getElementById('alerta');
-          document.getElementById('mensagem-alerta').textContent = mensagem;
-          alerta.style.display = 'block';
-          setTimeout(() => { alerta.style.display = 'none'; }, 3000);
-      }
+    <div class="container">
+        <a href="{{ url_for('pagina_inicial.escolher_teste', nome_teste='meem_g.aplicar_meem_g') }}" class="teste-btn">
+            MEEM-G
+        </a>
+        
+        <a href="/cadastro/?proximo=moca_b.aplicar_moca_b" class="teste-btn">
+            MoCA-B
+        </a>
+        
+        <!-- <a href="{{ url_for('pagina_inicial.escolher_teste', nome_teste='pagina_3.tela_pagina_3') }}" class="teste-btn">
+            Teste 3
+        </a>
+         -->
+        <!-- Adiciona mais testes conforme necessário -->
+    </div>
 
-      {% with messages = get_flashed_messages(with_categories=false) %}
-        {% if messages %}
-          mostrarAlerta("{{ messages[0] }}");
-        {% endif %}
-      {% endwith %}
-    </script>
+
+
+
+
+
+
+
+
+<script>
+    function mostrarAlerta(mensagem) {
+        const alerta = document.getElementById('alerta');
+        document.getElementById('mensagem-alerta').textContent = mensagem;
+        alerta.style.display = 'block';
+        setTimeout(() => { alerta.style.display = 'none'; }, 3000);
+    }
+
+    {% with messages = get_flashed_messages(with_categories=false) %}
+    {% if messages %}
+        mostrarAlerta("{{ messages[0] }}");
+    {% endif %}
+    {% endwith %}
+</script>
 </body>
 </html>

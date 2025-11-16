@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Fundo geral */
+body {
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Bloco principal */
+form {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+/* Titulos */
+h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+h3 {
+    color: #34495e;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin-top: 20px;
+}
+
+/* Para alinhar rádio e texto na mesma linha */
+label {
+    display: inline-flex;
+    align-items: center;
+    margin: 6px 10px 6px 0;
+    cursor: pointer;
+}
+
+/* Pequeno ajuste para o input ao lado do texto */
+input[type="radio"], input[type="checkbox"] {
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* Inputs & Textareas */
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Botões */
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Radios e checkboxes alinhados */
+input[type="radio"],
+input[type="checkbox"] {
+    vertical-align: middle;
+}

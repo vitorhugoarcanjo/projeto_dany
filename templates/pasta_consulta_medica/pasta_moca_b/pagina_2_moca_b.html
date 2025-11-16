@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Montreal Cognitive Assessment - Basic (MoCA-B)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pasta_consulta_medica/pagina_1.css') }}" />
+    <style>
+        .moca-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .secao-moca {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+        
+        .header-moca {
+            text-align: center;
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .grid-campos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .campo-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .campo-item label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .tentativas {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        
+        .tentativa {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .instrucao {
+            font-style: italic;
+            color: #7f8c8d;
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+        
+        .info-pontuacao {
+            background: #e8f4fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="moca-container">
+        <div class="header-moca">
+            <h1>Montreal Cognitive Assessment - Basic (MoCA-B)</h1>
+            <h2>Versão Brasileira</h2>
+        </div>
+
+        <div class="dados-paciente">
+            <h2>Paciente:</h2>
+            <p><strong>Nome:</strong> {{ paciente[0] }}</p>
+            <p><strong>Data de nascimento:</strong> {{ paciente[3] }}</p>
+        </div>
+
+        <form method="post">
+            <!-- DADOS DEMOGRÁFICOS -->
+            <div class="secao-moca">
+                <h3>Dados Demográficos</h3>
+                <div class="grid-campos">
+                    <div class="campo-item">
+                        <label for="escolaridade_anos">Anos de Escolaridade:</label>
+                        <input type="number" id="escolaridade_anos" name="escolaridade_anos" min="0" max="20" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="anal_fabeto">Analfabeto?</label>
+                        <select id="anal_fabeto" name="anal_fabeto" required>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div class="campo-item">
+                        <label for="horario_inicio">Horário de Início:</label>
+                        <input type="time" id="horario_inicio" name="horario_inicio" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FUNÇÕES EXECUTIVAS - TESTE DE TRILHAS -->
+            <div class="secao-moca">
+                <h3>1. FUNÇÕES EXECUTIVAS - Teste de Trilhas com Alternância</h3>
+                <p class="instrucao">"Por favor faça uma linha ligando os quadrados com números aos quadrados com pontos na ordem crescente. Comece aqui [número 1] e faça uma linha do quadrado com o número 1 para o quadrado com 1 ponto. Então faça uma linha até o quadrado com o número 2, em seguida para o quadrado com 2 pontos e assim por diante."</p>
+                
+                <div class="info-pontuacao">
+                    <strong>Pontuação:</strong> 1 ponto se completa corretamente | 0 pontos se comete erro ou faz correções
+                </div>
+                
+                <div class="campo-item">
+                    <label for="funcoes_executivas_trilhas">Completou corretamente?</label>
+                    <select id="funcoes_executivas_trilhas" name="funcoes_executivas_trilhas" required>
+                        <option value="0">Não (0 pontos)</option>
+                        <option value="1">Sim (1 ponto)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- EVOCAÇÃO IMEDIATA -->
+            <div class="secao-moca">
+                <h3>2. EVOCAÇÃO IMEDIATA (5 palavras)</h3>
+                <p class="instrucao">"Esse é um teste de memória. Agora eu vou ler uma lista com cinco palavras para você memorizar. Escute com atenção e, quando eu terminar, diga o maior número de palavras que você conseguir lembrar."</p>
+                <p class="instrucao">Realize 2 tentativas mesmo que a 1ª tenha sido bem sucedida</p>
+                
+                <div class="info-pontuacao">
+                    <strong>Pontuação:</strong> NENHUM PONTO é atribuído a essa tarefa (serve apenas para evocação tardia)
+                </div>
+                
+                <div class="tentativas">
+                    <div class="tentativa">
+                        <h4>1ª Tentativa (Registro apenas)</h4>
+                        <div class="grid-campos">
+                            <div class="campo-item">
+                                <label for="evocacao_tomate_t1">TOMATE</label>
+                                <input type="number" id="evocacao_tomate_t1" name="evocacao_tomate_t1" min="0" max="1" required>
+                            </div>
+                            <div class="campo-item">
+                                <label for="evocacao_sofa_t1">SOFÁ</label>
+                                <input type="number" id="evocacao_sofa_t1" name="evocacao_sofa_t1" min="0" max="1" required>
+                            </div>
+                            <div class="campo-item">
+                                <label for="evocacao_joelho_t1">JOELHO</label>
+                                <input type="number" id="evocacao_joelho_t1" name="evocacao_joelho_t1" min="0" max="1" required>
+                            </div>
+                            <div class="campo-item">
+                                <label for="evocacao_azul_t1">AZUL</label>
+                                <input type="number" id="evocacao_azul_t1" name="evocacao_azul_t1" min="0" max="1" required>
+                            </div>
+                            <div class="campo-item">
+                                <label for="evocacao_colher_t1">COLHER</label>
+                                <input type="number" id="evocacao_colher_t1" name="evocacao_colher_t1" min="0" max="1" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tentativa">
+                        <h4>2ª Tentativa (Registro apenas)</h4>
+                        <div class="grid-campos">
+                            <div class="campo-item">
+                                <label for="evocacao_tomate_t2">TOMATE</label>
+                                <input type="number" id="evocacao_tomate_t2" name="evocacao_tomate_t2" min="0" max="1" required>
+                            </div>
+                            <div class="campo-item">
+                                <label for="evocacao_sofa_t2">SOFÁ</label>
+                                <input type="number" id="evocacao_sofa_t2" name="evocacao_sofa_t2" min="0" max="1" required>
+                            </div>
+                            <div class="campo-item">
+                                <label for="evocacao_joelho_t2">JOELHO</label>
+                                <input type="number" id="evocacao_joelho_t2" name="evocacao_joelho_t2" min="0" max="1" required>
+                            </div>
+                            <div class="campo-item">
+                                <label for="evocacao_azul_t2">AZUL</label>
+                                <input type="number" id="evocacao_azul_t2" name="evocacao_azul_t2" min="0" max="1" required>
+                            </div>
+                            <div class="campo-item">
+                                <label for="evocacao_colher_t2">COLHER</label>
+                                <input type="number" id="evocacao_colher_t2" name="evocacao_colher_t2" min="0" max="1" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FLUÊNCIA -->
+            <div class="secao-moca">
+                <h3>3. FLUÊNCIA VERBAL</h3>
+                <p class="instrucao">"Agora eu quero que você diga o nome do maior número possível de FRUTAS. Você tem 60 segundos."</p>
+                
+                <div class="info-pontuacao">
+                    <strong>Pontuação:</strong> 
+                    ≥13 frutas = 2 pontos | 8-12 frutas = 1 ponto | ≤7 frutas = 0 pontos
+                </div>
+                
+                <div class="campo-item">
+                    <label for="fluencia_frutas">Número de Frutas (sem repetir):</label>
+                    <input type="number" id="fluencia_frutas" name="fluencia_frutas" min="0" max="50" required>
+                </div>
+            </div>
+
+            <!-- ORIENTAÇÃO -->
+            <div class="secao-moca">
+                <h3>4. ORIENTAÇÃO (6 pontos)</h3>
+                <p class="instrucao">"Por favor, sem olhar em qualquer relógio, diga que horas são. Agora me diga o dia da semana, o mês e o ano em que estamos. Agora me diga o nome desse local e o nome dessa cidade."</p>
+                
+                <div class="info-pontuacao">
+                    <strong>Pontuação:</strong> 1 ponto para cada item correto (horário ±2h é aceito)
+                </div>
+                
+                <div class="grid-campos">
+                    <div class="campo-item">
+                        <label for="orientacao_horario">Horário (± 2h)</label>
+                        <input type="number" id="orientacao_horario" name="orientacao_horario" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="orientacao_dia_semana">Dia da semana</label>
+                        <input type="number" id="orientacao_dia_semana" name="orientacao_dia_semana" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="orientacao_mes">Mês</label>
+                        <input type="number" id="orientacao_mes" name="orientacao_mes" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="orientacao_ano">Ano</label>
+                        <input type="number" id="orientacao_ano" name="orientacao_ano" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="orientacao_local">Local</label>
+                        <input type="number" id="orientacao_local" name="orientacao_local" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="orientacao_cidade">Cidade</label>
+                        <input type="number" id="orientacao_cidade" name="orientacao_cidade" min="0" max="1" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CÁLCULO -->
+            <div class="secao-moca">
+                <h3>5. CÁLCULO (3 pontos)</h3>
+                <p class="instrucao">"Imagine que você tem muitas moedas de 1 Real, muitas notas de 5 Reais e muitas notas de 10 Reais no seu bolso. Me diga 3 formas de pagar um produto que custa 13 Reais. Você não pode receber troco."</p>
+                
+                <div class="info-pontuacao">
+                    <strong>Pontuação:</strong> 3 formas = 3 pontos | 2 formas = 2 pontos | 1 forma = 1 ponto | 0 formas = 0 pontos
+                </div>
+                
+                <div class="grid-campos">
+                    <div class="campo-item">
+                        <label for="calculo_forma1">Forma 1 correta?</label>
+                        <input type="number" id="calculo_forma1" name="calculo_forma1" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="calculo_forma2">Forma 2 correta?</label>
+                        <input type="number" id="calculo_forma2" name="calculo_forma2" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="calculo_forma3">Forma 3 correta?</label>
+                        <input type="number" id="calculo_forma3" name="calculo_forma3" min="0" max="1" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABSTRAÇÃO -->
+            <div class="secao-moca">
+                <h3>6. ABSTRAÇÃO (3 pontos)</h3>
+                <p class="instrucao">"A que categorias essas palavras pertencem? (ex: laranja - banana = frutas)"</p>
+                
+                <div class="info-pontuacao">
+                    <strong>Respostas aceitáveis:</strong><br>
+                    trem-barco: meios de transporte, veículos<br>
+                    norte-sul: pontos cardeais, direções<br>
+                    tambor-flauta: instrumentos musicais
+                </div>
+                
+                <div class="grid-campos">
+                    <div class="campo-item">
+                        <label for="abstracao_trem_barco">trem - barco</label>
+                        <input type="number" id="abstracao_trem_barco" name="abstracao_trem_barco" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="abstracao_norte_sul">norte - sul</label>
+                        <input type="number" id="abstracao_norte_sul" name="abstracao_norte_sul" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="abstracao_tambor_flauta">tambor - flauta</label>
+                        <input type="number" id="abstracao_tambor_flauta" name="abstracao_tambor_flauta" min="0" max="1" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EVOCAÇÃO TARDIA -->
+            <div class="secao-moca">
+                <h3>7. EVOCAÇÃO TARDIA (5 pontos)</h3>
+                <p class="instrucao">"Eu li algumas palavras para você há poucos minutos e pedi para você memorizar. Me diga as palavras que você consegue lembrar."</p>
+                
+                <div class="info-pontuacao">
+                    <strong>Pontuação:</strong> 1 ponto para cada palavra evocada ESPONTANEAMENTE (sem pistas)
+                </div>
+                
+                <div class="grid-campos">
+                    <div class="campo-item">
+                        <label for="evocacao_tardia_tomate">TOMATE</label>
+                        <input type="number" id="evocacao_tardia_tomate" name="evocacao_tardia_tomate" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="evocacao_tardia_sofa">SOFÁ</label>
+                        <input type="number" id="evocacao_tardia_sofa" name="evocacao_tardia_sofa" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="evocacao_tardia_joelho">JOELHO</label>
+                        <input type="number" id="evocacao_tardia_joelho" name="evocacao_tardia_joelho" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="evocacao_tardia_azul">AZUL</label>
+                        <input type="number" id="evocacao_tardia_azul" name="evocacao_tardia_azul" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="evocacao_tardia_colher">COLHER</label>
+                        <input type="number" id="evocacao_tardia_colher" name="evocacao_tardia_colher" min="0" max="1" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PERCEPÇÃO VISUAL -->
+            <div class="secao-moca">
+                <h3>8. PERCEPÇÃO VISUAL (10 figuras)</h3>
+                <p class="instrucao">"Agora eu quero que você olhe para essas figuras. Há vários objetos sobrepostos. Identifique o maior número de objetos que conseguir. Se não souber o nome de algum objeto aponte ou diga a sua função."</p>
+                
+                <div class="info-pontuacao">
+                    <strong>Pontuação:</strong><br>
+                    9-10 objetos = 3 pontos | 6-8 objetos = 2 pontos | 4-5 objetos = 1 ponto | 0-3 objetos = 0 pontos
+                </div>
+                
+                <div class="grid-campos">
+                    <div class="campo-item">
+                        <label for="percepcao_tesoura">TESOURA</label>
+                        <input type="number" id="percepcao_tesoura" name="percepcao_tesoura" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="percepcao_camiseta">CAMISETA</label>
+                        <input type="number" id="percepcao_camiseta" name="percepcao_camiseta" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="percepcao_banana">BANANA</label>
+                        <input type="number" id="percepcao_banana" name="percepcao_banana" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="percepcao_abajur">ABAJUR</label>
+                        <input type="number" id="percepcao_abajur" name="percepcao_abajur" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="percepcao_vela">VELA</label>
+                        <input type="number" id="percepcao_vela" name="percepcao_vela" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="percepcao_relogio">RELÓGIO</label>
+                        <input type="number" id="percepcao_relogio" name="percepcao_relogio" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="percepcao_xicara">XÍCARA</label>
+                        <input type="number" id="percepcao_xicara" name="percepcao_xicara" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="percepcao_folha">FOLHA</label>
+                        <input type="number" id="percepcao_folha" name="percepcao_folha" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="percepcao_chave">CHAVE</label>
+                        <input type="number" id="percepcao_chave" name="percepcao_chave" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="percepcao_colher">COLHER</label>
+                        <input type="number" id="percepcao_colher" name="percepcao_colher" min="0" max="1" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOMEAÇÃO -->
+            <div class="secao-moca">
+                <h3>9. NOMEAÇÃO (4 animais)</h3>
+                <p class="instrucao">"Qual é o nome desse animal?" (aponte para cada animal)</p>
+                
+                <div class="info-pontuacao">
+                    <strong>Respostas corretas:</strong> ZEBRA, PAVÃO, TIGRE, BORBOLETA<br>
+                    <em>Não aceitar: equino, ave, felino, inseto</em>
+                </div>
+                
+                <div class="grid-campos">
+                    <div class="campo-item">
+                        <label for="nomeacao_zebra">ZEBRA</label>
+                        <input type="number" id="nomeacao_zebra" name="nomeacao_zebra" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="nomeacao_pavao">PAVÃO</label>
+                        <input type="number" id="nomeacao_pavao" name="nomeacao_pavao" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="nomeacao_tigre">TIGRE</label>
+                        <input type="number" id="nomeacao_tigre" name="nomeacao_tigre" min="0" max="1" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="nomeacao_borboleta">BORBOLETA</label>
+                        <input type="number" id="nomeacao_borboleta" name="nomeacao_borboleta" min="0" max="1" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATENÇÃO -->
+            <div class="secao-moca">
+                <h3>10. ATENÇÃO</h3>
+                
+                <div class="grid-campos">
+                    <div class="campo-item">
+                        <label for="atencao_circulos_erros">Nº de Erros - Círculos (máx 1 erro = 1 ponto)</label>
+                        <input type="number" id="atencao_circulos_erros" name="atencao_circulos_erros" min="0" max="20" required>
+                    </div>
+                    <div class="campo-item">
+                        <label for="atencao_circulos_quadrados_erros">Nº de Erros - Círculos/Quadrados (≤2 erros=2pts, 3 erros=1pt)</label>
+                        <input type="number" id="atencao_circulos_quadrados_erros" name="atencao_circulos_quadrados_erros" min="0" max="20" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HORÁRIO FINAL -->
+            <div class="secao-moca">
+                <h3>DADOS FINAIS</h3>
+                <div class="campo-item">
+                    <label for="horario_final">Horário Final:</label>
+                    <input type="time" id="horario_final" name="horario_final" required>
+                </div>
+            </div>
+
+            <button type="submit">Finalizar Teste</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -4,6 +4,20 @@
 h1 {
     padding: 20px;
 }
+
+
+/* SOBRE O SITE */
+.container_sobre {
+    justify-items: center;
+    margin-bottom: 50px;
+}
+
+p {
+    width: 80%;
+    text-align: justify;
+}
+
+
 /* Estilo para o link iniciar consulta */
 a {
     display: inline-block;
@@ -22,3 +36,6 @@ a {
 .container {
     text-align: center;
 }
+
+
+

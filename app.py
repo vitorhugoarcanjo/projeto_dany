@@ -4,11 +4,18 @@ from flask import Flask, render_template
 from utils.config import get_secret_key
 
 # IMPORTAÇÃO DAS PÁGINAS
-from rotas.pasta_paciente.cadastro_paciente import bp_cadastro, criar_tabela
-from rotas.pasta_paciente.tabela_consultas_salvas.tabela_salvar_consulta import criar_tabela_atendimentos
+from config.database import criar_tabelas
+from rotas.pasta_paciente.cadastro_paciente import bp_cadastro
+# Remove o import do criar_tabela_atendimentos se não for mais usado
 from rotas.pagina_inicial import bp_pagina_inicial
-from rotas.pasta_consulta_medica.pagina_1 import bp_pagina_1
-from rotas.pasta_consulta_medica.pagina_2 import bp_pagina_2
+
+# TESTE MEEN_G
+from rotas.pasta_consulta_medica.pasta_meen_g.pagina_1_meen_g import bp_meem_g
+
+# TESTE MOCA B
+from rotas.pasta_consulta_medica.pasta_moca_b.pagina_2_moca_b import bp_moca_b
+
+
 from rotas.pasta_consulta_medica.pagina_3 import bp_pagina_3
 from rotas.pasta_consulta_medica.pagina_4 import bp_pagina_4
 from rotas.pasta_consulta_medica.pagina_5 import bp_pagina_5
@@ -26,11 +33,12 @@ app.register_blueprint(bp_pagina_inicial, url_prefix='/pagina_inicial')
 # CADASTRO PACIENTE
 app.register_blueprint(bp_cadastro, url_prefix='/cadastro')
 
-# PÁGINA 1
-app.register_blueprint(bp_pagina_1, url_prefix='/pagina_1')
+# TESTE MEEN_G
+app.register_blueprint(bp_meem_g, url_prefix='/meen_g')
 
-# PÁGINA 2
-app.register_blueprint(bp_pagina_2, url_prefix='/pagina_2')
+# TESTE MOCA B
+app.register_blueprint(bp_moca_b, url_prefix='/moca_b')
+
 
 # PÁGINA 3
 app.register_blueprint(bp_pagina_3, url_prefix='/pagina_3')
@@ -60,6 +68,5 @@ def pagina_inicial():
 
 
 if __name__ == '__main__':
-    criar_tabela()
-    criar_tabela_atendimentos()
+    criar_tabelas()  # Só essa função agora
     app.run(debug=True)
