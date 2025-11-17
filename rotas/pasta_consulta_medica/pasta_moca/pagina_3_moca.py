@@ -238,4 +238,4 @@ def resultado_moca():
         flash("Nenhuma avaliação MoCA encontrada. Por favor, realize uma avaliação primeiro.")
         return redirect(url_for('moca.aplicar_moca'))
     
-    return render_template('pasta_consulta_medica/pasta_moca/resultado_moca.html', resultado=resultado)
+    return render_template('pasta_consulta_medica/pasta_moca/resultado.html', resultado=resultado)
