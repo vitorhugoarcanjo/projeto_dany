@@ -84,7 +84,43 @@ def criar_tabelas():
     ''')
 
 
+    # DESENHO RELOGIO
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS aplicacoes_relogio (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        paciente_id INTEGER NOT NULL,
+        dados_respostas TEXT,
+        pontuacao_total INTEGER,
+        interpretacao TEXT,
+        data_aplicacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (paciente_id) REFERENCES pacientes (id)
+    )
+    ''')
+
     
+    # TESTE ADDENBROKE
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS aplicacoes_acer (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        paciente_id INTEGER NOT NULL,
+        hospital TEXT,
+        examinador TEXT,
+        escolaridade TEXT,
+        profissao TEXT,
+        dominancia_manual TEXT,
+        dados_respostas TEXT,
+        pontuacao_total INTEGER,
+        interpretacao TEXT,
+        data_aplicacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+        subtotal_atencao_orientacao INTEGER,
+        subtotal_memoria INTEGER,
+        subtotal_fluencia INTEGER,
+        subtotal_linguagem INTEGER,
+        subtotal_visual_espacial INTEGER,
+        FOREIGN KEY (paciente_id) REFERENCES pacientes (id)
+    )
+    ''')
+
     conn.commit()
     conn.close()
     print(f"✅ Tabelas verificadas! Banco em: {conexao_banco}")

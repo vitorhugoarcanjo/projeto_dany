@@ -21,6 +21,11 @@ from rotas.pasta_consulta_medica.pasta_moca.pagina_3_moca import bp_moca
 # TESTE QUESTIONÁRIO DE ATIVIDADES FUNCIONAIS (Pfeffer)
 from rotas.pasta_consulta_medica.pasta_ques_ativ_func.pfeffer import bp_pfeffer
 
+# TESTE DESENHO RELOGIO
+from rotas.pasta_consulta_medica.pasta_desen_relogio.desenho_relogio import bp_relogio
+
+# TESTE ADDENBROKE
+from rotas.pasta_consulta_medica.pasta_addenbroke_ace.teste_addenbroke_ace import bp_acer
 
 app = Flask(__name__)
 app.secret_key = get_secret_key()
@@ -43,6 +48,11 @@ app.register_blueprint(bp_moca, url_prefix='/moca')
 # TESTE PFEFFER
 app.register_blueprint(bp_pfeffer, url_prefix='/pfeffer')
 
+# TESTE DESENHO RELOGIO
+app.register_blueprint(bp_relogio, url_prefix='/relogio')
+
+# TESTE DE ADDENBROKE
+app.register_blueprint(bp_acer, url_prefix='/acer')
 
 @app.route('/')
 def pagina_inicial():

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACE-R - Addenbrooke's Cognitive Examination</title>
+    <style>
+        form {
+            background-color: #fff;
+            padding: 30px 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+            max-width: 1000px;
+            margin: 35px auto 55px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #1a2732;
+            margin-bottom: 32px;
+        }
+
+        .dados-paciente {
+            background: #f0f4fb;
+            border: 1.5px solid #ced6e0;
+            border-radius: 8px;
+            padding: 14px 25px;
+            margin-bottom: 40px;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 19px;
+            align-items: flex-end;
+            background-color: #f7f9fb;
+            border-radius: 6px;
+            padding: 11px 13px;
+            border: 1px solid #e3e3f6;
+        }
+
+        .flex-item {
+            flex: 1 1 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex-item label {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1.2px solid #abb8c3;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            max-width: 80px;
+            text-align: center;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .secao {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .secao h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+
+        .questao {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        .questao label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tabela-fluencia {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        .tabela-fluencia th, .tabela-fluencia td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .tabela-fluencia th {
+            background: #3498db;
+            color: white;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 30px;
+            width: 100%;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .instrucoes {
+            background: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 12px 15px;
+            margin: 10px 0;
+            font-size: 13px;
+            color: #2c3e50;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <h1>EXAME COGNITIVO DE ADDENBROOKE - VERSÃO REVISADA</h1>
+        <h2>Addenbrooke's Cognitive Examination - Revised (ACE-R)</h2>
+
+        <!-- DADOS DO PACIENTE -->
+        <div class="dados-paciente">
+            <h2>Dados do Paciente e Avaliação</h2>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="nome_paciente">Nome do Paciente:</label>
+                    <input type="text" id="nome_paciente" name="nome_paciente" value="{{ paciente.nome }}" readonly>
+                </div>
+                <div class="flex-item">
+                    <label for="data_avaliacao">Data da avaliação:</label>
+                    <input type="date" id="data_avaliacao" name="data_avaliacao" value="{{ data_atual }}" required>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="hospital">Nome do Hospital:</label>
+                    <input type="text" id="hospital" name="hospital" placeholder="Nome da instituição">
+                </div>
+                <div class="flex-item">
+                    <label for="examinador">Nome do examinador:</label>
+                    <input type="text" id="examinador" name="examinador" placeholder="Nome do examinador" required>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="escolaridade">Escolaridade:</label>
+                    <input type="text" id="escolaridade" name="escolaridade" placeholder="Anos de estudo">
+                </div>
+                <div class="flex-item">
+                    <label for="profissao">Profissão:</label>
+                    <input type="text" id="profissao" name="profissao" placeholder="Profissão atual ou anterior">
+                </div>
+                <div class="flex-item">
+                    <label for="dominancia_manual">Dominância manual:</label>
+                    <select id="dominancia_manual" name="dominancia_manual">
+                        <option value="">Selecione</option>
+                        <option value="destro">Destro</option>
+                        <option value="canhoto">Canhoto</option>
+                        <option value="ambidestro">Ambidestro</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- ORIENTAÇÃO -->
+        <div class="secao">
+            <h3>ORIENTAÇÃO [0-10 pontos]</h3>
+            
+            <div class="instrucoes">
+                <strong>Instrução:</strong> Perguntar ao paciente as informações abaixo.
+            </div>
+
+            <div class="questao">
+                <label>Qual é o dia da semana?</label>
+                <select name="orientacao_dia_semana" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Qual é o dia do mês?</label>
+                <select name="orientacao_dia_mes" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Qual é o mês?</label>
+                <select name="orientacao_mes" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Qual é o ano?</label>
+                <select name="orientacao_ano" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Qual é a hora aproximada?</label>
+                <select name="orientacao_hora" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto (±1 hora)</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Qual é o local específico onde estamos?</label>
+                <select name="orientacao_local_especifico" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Qual é o tipo de local (hospital, clínica)?</label>
+                <select name="orientacao_local_generico" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Qual é o bairro ou rua próxima?</label>
+                <select name="orientacao_bairro" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Em que cidade estamos?</label>
+                <select name="orientacao_cidade" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Em que estado estamos?</label>
+                <select name="orientacao_estado" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- REGISTRO -->
+        <div class="secao">
+            <h3>REGISTRO [0-3 pontos]</h3>
+            
+            <div class="instrucoes">
+                <strong>Instrução:</strong> "Eu vou dizer três palavras e você irá repeti-las a seguir: carro, vaso, tijolo"
+            </div>
+
+            <div class="questao">
+                <label>Carro</label>
+                <select name="registro_carro" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Vaso</label>
+                <select name="registro_vaso" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Tijolo</label>
+                <select name="registro_tijolo" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Número de tentativas para aprendizado:</label>
+                <input type="number" name="tentativas_registro" min="1" max="3" value="1" required>
+            </div>
+        </div>
+
+        <!-- ATENÇÃO & CONCENTRAÇÃO -->
+        <div class="secao">
+            <h3>ATENÇÃO & CONCENTRAÇÃO [0-5 pontos]</h3>
+            
+            <div class="instrucoes">
+                <strong>Instrução:</strong> Subtração de setes seriadamente (100-7, 93-7, 86-7, 79-7, 72-7, 65)
+            </div>
+
+            <div class="questao">
+                <label>100 - 7 = 93</label>
+                <select name="subtracao_93" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>93 - 7 = 86</label>
+                <select name="subtracao_86" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>86 - 7 = 79</label>
+                <select name="subtracao_79" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>79 - 7 = 72</label>
+                <select name="subtracao_72" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>72 - 7 = 65</label>
+                <select name="subtracao_65" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- MEMÓRIA - Recordação -->
+        <div class="secao">
+            <h3>MEMÓRIA - Recordação [0-3 pontos]</h3>
+            
+            <div class="instrucoes">
+                <strong>Instrução:</strong> Pergunte quais as palavras que o indivíduo acabara de repetir.
+            </div>
+
+            <div class="questao">
+                <label>Carro</label>
+                <select name="memoria_carro" required>
+                    <option value="0">0 - Não lembrou</option>
+                    <option value="1">1 - Lembrou</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Vaso</label>
+                <select name="memoria_vaso" required>
+                    <option value="0">0 - Não lembrou</option>
+                    <option value="1">1 - Lembrou</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Tijolo</label>
+                <select name="memoria_tijolo" required>
+                    <option value="0">0 - Não lembrou</option>
+                    <option value="1">1 - Lembrou</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- MEMÓRIA - Memória anterógrada -->
+        <div class="secao">
+            <h3>MEMÓRIA - Memória anterógrada [0-7 pontos]</h3>
+            
+            <div class="instrucoes">
+                <strong>Instrução:</strong> "Eu vou lhe dar um nome e um endereço e eu gostaria que você repetisse depois de mim. Nós vamos fazer isso três vezes. Pontuar apenas a terceira tentativa."
+            </div>
+
+            <div class="questao">
+                <label>Renato Moreira (3ª tentativa)</label>
+                <select name="memoria_renato_t3" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Rua Bela Vista (3ª tentativa)</label>
+                <select name="memoria_rua_t3" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>73 (3ª tentativa)</label>
+                <select name="memoria_73_t3" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Santarém (3ª tentativa)</label>
+                <select name="memoria_santarem_t3" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Pará (3ª tentativa)</label>
+                <select name="memoria_para_t3" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- MEMÓRIA - Memória retrógrada -->
+        <div class="secao">
+            <h3>MEMÓRIA - Memória retrógrada [0-4 pontos]</h3>
+
+            <div class="questao">
+                <label>Nome do atual presidente da República</label>
+                <select name="memoria_presidente_atual" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Nome do presidente que construiu Brasília</label>
+                <select name="memoria_presidente_brasilia" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto (Juscelino Kubitschek)</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Nome do presidente dos EUA</label>
+                <select name="memoria_presidente_eua" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Nome do presidente dos EUA que foi assassinado nos anos 60</label>
+                <select name="memoria_presidente_eua_assassinado" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto (John F. Kennedy)</option>
+                </select>
+            </div>
+        </div>
+
+                <!-- FLUÊNCIA VERBAL -->
+        <div class="secao">
+            <h3>FLUÊNCIA VERBAL [0-14 pontos]</h3>
+            
+            <div class="instrucoes">
+                <strong>Instrução Letra "P":</strong> "Eu vou lhe dizer uma letra do alfabeto e eu gostaria que você dissesse o maior número de palavras que puder começando com a letra, mas não diga nomes de pessoas ou lugares. Você tem um minuto e a letra é 'P'."
+            </div>
+
+            <div class="questao">
+                <label>Total de palavras com a letra P (em 1 minuto):</label>
+                <input type="number" name="fluencia_p_total" min="0" max="50" required>
+            </div>
+
+            <div class="questao">
+                <label>Pontuação Letra P (conforme tabela):</label>
+                <select name="fluencia_p_pontos" required>
+                    <option value="0">0 - Menos de 2 palavras</option>
+                    <option value="1">1 - 2-3 palavras</option>
+                    <option value="2">2 - 4-5 palavras</option>
+                    <option value="3">3 - 6-7 palavras</option>
+                    <option value="4">4 - 8-10 palavras</option>
+                    <option value="5">5 - 11-13 palavras</option>
+                    <option value="6">6 - 14-17 palavras</option>
+                    <option value="7">7 - Mais de 17 palavras</option>
+                </select>
+            </div>
+
+            <div class="instrucoes">
+                <strong>Instrução Animais:</strong> "Agora você poderia dizer o maior número de animais que conseguir, começando com qualquer letra?"
+            </div>
+
+            <div class="questao">
+                <label>Total de animais (em 1 minuto):</label>
+                <input type="number" name="fluencia_animais_total" min="0" max="50" required>
+            </div>
+
+            <div class="questao">
+                <label>Pontuação Animais (conforme tabela):</label>
+                <select name="fluencia_animais_pontos" required>
+                    <option value="0">0 - Menos de 5 animais</option>
+                    <option value="1">1 - 5-6 animais</option>
+                    <option value="2">2 - 7-8 animais</option>
+                    <option value="3">3 - 9-10 animais</option>
+                    <option value="4">4 - 11-13 animais</option>
+                    <option value="5">5 - 14-16 animais</option>
+                    <option value="6">6 - 17-21 animais</option>
+                    <option value="7">7 - Mais de 21 animais</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- LINGUAGEM - Compreensão e Escrita -->
+        <div class="secao">
+            <h3>LINGUAGEM [0-26 pontos]</h3>
+            
+            <div class="instrucoes">
+                <strong>Compreensão:</strong> Mostrar a instrução escrita e pedir para fazer o que está sendo mandado.
+            </div>
+
+            <div class="questao">
+                <label>"Feche os olhos"</label>
+                <select name="linguagem_fechar_olhos" required>
+                    <option value="0">0 - Não executou</option>
+                    <option value="1">1 - Executou corretamente</option>
+                </select>
+            </div>
+
+            <div class="instrucoes">
+                <strong>Comando complexo:</strong> "Pegue este papel com a mão direita, dobre-o ao meio e coloque-o no chão."
+            </div>
+
+            <div class="questao">
+                <label>Pegar papel com mão direita</label>
+                <select name="linguagem_pegar_papel" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Dobrar papel ao meio</label>
+                <select name="linguagem_dobrar_papel" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Colocar no chão</label>
+                <select name="linguagem_colocar_chao" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="instrucoes">
+                <strong>Escrita:</strong> Peça para escrever uma frase completa.
+            </div>
+
+            <div class="questao">
+                <label>Frase escrita corretamente</label>
+                <select name="linguagem_escrita" required>
+                    <option value="0">0 - Não escreveu ou frase incompleta</option>
+                    <option value="1">1 - Frase completa e coerente</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- LINGUAGEM - Repetição -->
+        <div class="secao">
+            <h3>LINGUAGEM - Repetição [0-4 pontos]</h3>
+
+            <div class="instrucoes">
+                <strong>Repetição de palavras difíceis:</strong> "hipopótamo, excentricidade, ininteligível, estatístico"
+            </div>
+
+            <div class="questao">
+                <label>Pontuação repetição palavras difíceis</label>
+                <select name="linguagem_repeticao_palavras" required>
+                    <option value="0">0 - 2 ou menos corretas</option>
+                    <option value="1">1 - 3 corretas</option>
+                    <option value="2">2 - 4 corretas</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>"Acima, além e abaixo"</label>
+                <select name="linguagem_repeticao_acima" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>"Nem aqui, nem ali, nem lá"</label>
+                <select name="linguagem_repeticao_nem" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- LINGUAGEM - Nomeação e Compreensão -->
+        <div class="secao">
+            <h3>LINGUAGEM - Nomeação e Compreensão [0-6 pontos]</h3>
+
+            <div class="instrucoes">
+                <strong>Nomeação de figuras:</strong>
+            </div>
+
+            <div class="questao">
+                <label>Caneta</label>
+                <select name="linguagem_nomeacao_caneta" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Relógio</label>
+                <select name="linguagem_nomeacao_relogio" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="instrucoes">
+                <strong>Compreensão com figuras:</strong>
+            </div>
+
+            <div class="questao">
+                <label>Apontar para o que está associado com a monarquia (coroa)</label>
+                <select name="linguagem_monarquia" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Apontar para o que é encontrado no Pantanal (jacarés)</label>
+                <select name="linguagem_pantanal" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Apontar para o que é encontrado na Antártica (pinguins)</label>
+                <select name="linguagem_antartica" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Apontar para o que tem relação náutica (ancora)</label>
+                <select name="linguagem_nautica" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - Correto</option>
+                </select>
+            </div>
+
+            <div class="instrucoes">
+                <strong>Leitura:</strong> "táxi, testa, saxofone, fixar, ballet"
+            </div>
+
+            <div class="questao">
+                <label>Leitura correta das palavras</label>
+                <select name="linguagem_leitura" required>
+                    <option value="0">0 - Errou alguma palavra</option>
+                    <option value="1">1 - Todas corretas</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- HABILIDADES VISUAIS-ESPACIAIS -->
+        <div class="secao">
+            <h3>HABILIDADES VISUAIS-ESPACIAIS [0-16 pontos]</h3>
+
+            <div class="questao">
+                <label>Pentágonos sobrepostos (cópia)</label>
+                <select name="visual_pentagonos" required>
+                    <option value="0">0 - Não conseguiu</option>
+                    <option value="1">1 - Conseguiu</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Cubo (cópia)</label>
+                <select name="visual_cubo" required>
+                    <option value="0">0 - Não conseguiu</option>
+                    <option value="1">1 - Parcial</option>
+                    <option value="2">2 - Completo</option>
+                </select>
+            </div>
+
+            <div class="instrucoes">
+                <strong>Relógio:</strong> Desenhar mostrador com números e ponteiros marcando 5:10
+            </div>
+
+            <div class="questao">
+                <label>Círculo do relógio</label>
+                <select name="visual_relogio_circulo" required>
+                    <option value="0">0 - Não desenhou</option>
+                    <option value="1">1 - Desenhou</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Números do relógio (1-12 em posições corretas)</label>
+                <select name="visual_relogio_numeros" required>
+                    <option value="0">0 - Não colocou</option>
+                    <option value="1">1 - Parcial</option>
+                    <option value="2">2 - Completo</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Ponteiros (hora menor, minuto maior - 5:10)</label>
+                <select name="visual_relogio_ponteiros" required>
+                    <option value="0">0 - Não colocou</option>
+                    <option value="1">1 - Parcial</option>
+                    <option value="2">2 - Completo</option>
+                </select>
+            </div>
+
+            <div class="instrucoes">
+                <strong>Habilidades Perceptivas:</strong> Contar pontos sem apontar
+            </div>
+
+            <div class="questao">
+                <label>Pontos contados corretamente (8 pontos)</label>
+                <select name="perceptiva_pontos" required>
+                    <option value="0">0 - Errado</option>
+                    <option value="1">1 - 6-7 pontos</option>
+                    <option value="2">2 - 8 pontos</option>
+                    <option value="3">3 - 9-10 pontos</option>
+                    <option value="4">4 - 11+ pontos</option>
+                </select>
+            </div>
+
+            <div class="instrucoes">
+                <strong>Identificação de letras:</strong> R, C, D, O
+            </div>
+
+            <div class="questao">
+                <label>Letras identificadas corretamente</label>
+                <select name="perceptiva_letras" required>
+                    <option value="0">0 - 0-1 corretas</option>
+                    <option value="1">1 - 2 corretas</option>
+                    <option value="2">2 - 3 corretas</option>
+                    <option value="3">3 - 4 corretas</option>
+                    <option value="4">4 - Todas corretas</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- RECORDAÇÃO & RECONHECIMENTO -->
+        <div class="secao">
+            <h3>RECORDAÇÃO & RECONHECIMENTO [0-12 pontos]</h3>
+
+            <div class="instrucoes">
+                <strong>Recordação:</strong> "Agora você vai me dizer o que você se lembra daquele nome e endereço que nós repetimos no começo"
+            </div>
+
+            <div class="questao">
+                <label>Renato Moreira</label>
+                <select name="recordacao_renato" required>
+                    <option value="0">0 - Não lembrou</option>
+                    <option value="1">1 - Lembrou</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Rua Bela Vista</label>
+                <select name="recordacao_rua" required>
+                    <option value="0">0 - Não lembrou</option>
+                    <option value="1">1 - Lembrou</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>73</label>
+                <select name="recordacao_73" required>
+                    <option value="0">0 - Não lembrou</option>
+                    <option value="1">1 - Lembrou</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Santarém</label>
+                <select name="recordacao_santarem" required>
+                    <option value="0">0 - Não lembrou</option>
+                    <option value="1">1 - Lembrou</option>
+                </select>
+            </div>
+
+            <div class="questao">
+                <label>Pará</label>
+                <select name="recordacao_para" required>
+                    <option value="0">0 - Não lembrou</option>
+                    <option value="1">1 - Lembrou</option>
+                </select>
+            </div>
+
+            <div class="instrucoes">
+                <strong>Reconhecimento:</strong> Pontos adicionais para itens reconhecidos com dica
+            </div>
+
+            <div class="questao">
+                <label>Pontos de reconhecimento (0-5)</label>
+                <input type="number" name="reconhecimento_pontos" min="0" max="5" required>
+            </div>
+        </div>
+
+        <button type="submit">Calcular Pontuação ACE-R</button>
+    </form>
+</body>
+</html>

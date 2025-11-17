@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste do Desenho do Relógio</title>
+    <style>
+        form {
+            background-color: #fff;
+            padding: 30px 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+            max-width: 900px;
+            margin: 35px auto 55px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #1a2732;
+            margin-bottom: 32px;
+        }
+
+        .dados-paciente {
+            background: #f0f4fb;
+            border: 1.5px solid #ced6e0;
+            border-radius: 8px;
+            padding: 14px 25px;
+            margin-bottom: 40px;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 19px;
+            align-items: flex-end;
+            background-color: #f7f9fb;
+            border-radius: 6px;
+            padding: 11px 13px;
+            border: 1px solid #e3e3f6;
+        }
+
+        .flex-item {
+            flex: 1 1 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex-item label {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1.2px solid #abb8c3;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            max-width: 80px;
+            text-align: center;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .instrucoes {
+            background: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tabela-avaliacao {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .tabela-avaliacao th {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .tabela-avaliacao td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tabela-avaliacao tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .campo-pontuacao {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 30px;
+            width: 100%;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <h1>Teste do Desenho do Relógio</h1>
+        <h2>(Sunderland et al., 1989)</h2>
+
+        <!-- DADOS DO PACIENTE -->
+        <div class="dados-paciente">
+            <h2>Dados do Paciente</h2>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="nome_paciente">Nome do Paciente:</label>
+                    <input type="text" id="nome_paciente" name="nome_paciente" value="{{ paciente.nome }}" readonly>
+                </div>
+                <div class="flex-item">
+                    <label for="data_avaliacao">Data de Avaliação:</label>
+                    <input type="date" id="data_avaliacao" name="data_avaliacao" value="{{ data_atual }}" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- INSTRUÇÕES -->
+        <div class="instrucoes">
+            <strong>INSTRUÇÃO:</strong><br>
+            Peça ao paciente que <strong>"Desenhe um relógio com todos os números e coloque os ponteiros marcando: 2 horas e 45 minutos"</strong>. 
+            Faça o desenho no verso da folha.
+        </div>
+
+        <!-- TABELA DE AVALIAÇÃO -->
+        <h3>CRITÉRIOS DE AVALIAÇÃO</h3>
+        <table class="tabela-avaliacao">
+            <thead>
+                <tr>
+                    <th>Pontuação</th>
+                    <th>Critério</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>10</strong></td>
+                    <td>Hora certa</td>
+                    <td>Relógio e números estão corretos</td>
+                </tr>
+                <tr>
+                    <td><strong>9</strong></td>
+                    <td>Leve distúrbio nos ponteiros</td>
+                    <td>Ex: ponteiro das horas sobre o dois</td>
+                </tr>
+                <tr>
+                    <td><strong>8</strong></td>
+                    <td>Distúrbios mais intensos nos ponteiros</td>
+                    <td>Ex: anotando 02h20min</td>
+                </tr>
+                <tr>
+                    <td><strong>7</strong></td>
+                    <td>Ponteiros completamente errados</td>
+                    <td>Ponteiros não representam 2:45</td>
+                </tr>
+                <tr>
+                    <td><strong>6</strong></td>
+                    <td>Uso inapropriado</td>
+                    <td>Ex: uso de código digital ou de círculos envolvendo números</td>
+                </tr>
+                <tr>
+                    <td><strong>5</strong></td>
+                    <td>Números em ordem inversa</td>
+                    <td>Números concentrados em alguma parte do relógio</td>
+                </tr>
+                <tr>
+                    <td><strong>4</strong></td>
+                    <td>Números faltando</td>
+                    <td>Números situados fora dos limites do relógio</td>
+                </tr>
+                <tr>
+                    <td><strong>3</strong></td>
+                    <td>Números e relógio não conectados</td>
+                    <td>Ausência de ponteiros</td>
+                </tr>
+                <tr>
+                    <td><strong>2</strong></td>
+                    <td>Evidência de entendimento</td>
+                    <td>Vaga semelhança com um relógio</td>
+                </tr>
+                <tr>
+                    <td><strong>1</strong></td>
+                    <td>Não tentou ou não conseguiu</td>
+                    <td>Não representou um relógio</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- CAMPO DE PONTUAÇÃO -->
+        <div class="campo-pontuacao">
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="pontuacao">Pontuação Obtida (1-10):</label>
+                    <input type="number" id="pontuacao" name="pontuacao" min="1" max="10" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMENTÁRIOS -->
+        <div class="flex-row">
+            <div class="flex-item">
+                <label for="comentarios">Comentários/Observações:</label>
+                <textarea id="comentarios" name="comentarios" placeholder="Observações sobre o desempenho do paciente..."></textarea>
+            </div>
+        </div>
+
+        <div class="instrucoes">
+            <strong>NOTA:</strong> Se, por iniciativa própria, o paciente achar que não ficou bom o seu relógio e quiser desenhar novamente, é permitido.
+        </div>
+
+        <button type="submit">Salvar Avaliação</button>
+    </form>
+</body>
+</html>

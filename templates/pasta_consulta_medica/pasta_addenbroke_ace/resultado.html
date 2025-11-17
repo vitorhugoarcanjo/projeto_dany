@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado - ACE-R</title>
+    <style>
+        .resultado-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a2732;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .pontuacao-total {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+
+        .interpretacao {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .normal { background-color: #d4edda; color: #155724; border: 2px solid #c3e6cb; }
+        .muito_leve { background-color: #d1ecf1; color: #0c5460; border: 2px solid #bee5eb; }
+        .leve { background-color: #fff3cd; color: #856404; border: 2px solid #ffeaa7; }
+        .moderada { background-color: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; }
+        .grave { background-color: #dc3545; color: white; border: 2px solid #c82333; }
+
+        .tabela-subtotais {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+        }
+
+        .tabela-subtotais th {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .tabela-subtotais td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tabela-subtotais tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .barra-progresso {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+
+        .barra-preenchida {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            border-radius: 10px;
+        }
+
+        .info-box {
+            background: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .btn-voltar {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-voltar:hover {
+            background-color: #2980b9;
+        }
+
+        .comparacao-meem {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="resultado-container">
+        <h1>Resultado - ACE-R</h1>
+        <h2>Addenbrooke's Cognitive Examination - Revised</h2>
+        
+        {% if resultado %}
+            <div class="pontuacao-total">
+                {{ resultado.pontuacao_total }}/100
+            </div>
+
+            <div class="interpretacao {{ resultado.classificacao }}">
+                {{ resultado.interpretacao }}
+            </div>
+
+            <!-- TABELA DE SUBTOTAIS -->
+            <table class="tabela-subtotais">
+                <thead>
+                    <tr>
+                        <th>Domínio Cognitivo</th>
+                        <th>Pontuação</th>
+                        <th>Máximo</th>
+                        <th>Percentual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Atenção e Orientação</strong></td>
+                        <td>{{ resultado.subtotais.atencao_orientacao }}</td>
+                        <td>18</td>
+                        <td>
+                            <div class="barra-progresso">
+                                <div class="barra-preenchida" style="width: {{ (resultado.subtotais.atencao_orientacao / 18 * 100) | round }}%"></div>
+                            </div>
+                            {{ (resultado.subtotais.atencao_orientacao / 18 * 100) | round }}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memória</strong></td>
+                        <td>{{ resultado.subtotais.memoria }}</td>
+                        <td>26</td>
+                        <td>
+                            <div class="barra-progresso">
+                                <div class="barra-preenchida" style="width: {{ (resultado.subtotais.memoria / 26 * 100) | round }}%"></div>
+                            </div>
+                            {{ (resultado.subtotais.memoria / 26 * 100) | round }}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fluência</strong></td>
+                        <td>{{ resultado.subtotais.fluencia }}</td>
+                        <td>14</td>
+                        <td>
+                            <div class="barra-progresso">
+                                <div class="barra-preenchida" style="width: {{ (resultado.subtotais.fluencia / 14 * 100) | round }}%"></div>
+                            </div>
+                            {{ (resultado.subtotais.fluencia / 14 * 100) | round }}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Linguagem</strong></td>
+                        <td>{{ resultado.subtotais.linguagem }}</td>
+                        <td>26</td>
+                        <td>
+                            <div class="barra-progresso">
+                                <div class="barra-preenchida" style="width: {{ (resultado.subtotais.linguagem / 26 * 100) | round }}%"></div>
+                            </div>
+                            {{ (resultado.subtotais.linguagem / 26 * 100) | round }}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visual-Espacial</strong></td>
+                        <td>{{ resultado.subtotais.visual_espacial }}</td>
+                        <td>16</td>
+                        <td>
+                            <div class="barra-progresso">
+                                <div class="barra-preenchida" style="width: {{ (resultado.subtotais.visual_espacial / 16 * 100) | round }}%"></div>
+                            </div>
+                            {{ (resultado.subtotais.visual_espacial / 16 * 100) | round }}%
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>Interpretação dos Escores ACE-R:</strong><br><br>
+                • <strong>88-100 pontos:</strong> Cognição normal<br>
+                • <strong>82-87 pontos:</strong> Comprometimento cognitivo muito leve<br>
+                • <strong>70-81 pontos:</strong> Comprometimento cognitivo leve<br>
+                • <strong>50-69 pontos:</strong> Demência leve a moderada<br>
+                • <strong>0-49 pontos:</strong> Demência moderada a grave<br><br>
+                <em>O ACE-R é mais sensível que o MEEM para detectar comprometimentos cognitivos leves.</em>
+            </div>
+
+            <div class="comparacao-meem">
+                <strong>Equivalência MEEM aproximada:</strong> {{ (resultado.pontuacao_total * 0.3) | round | int }}/30<br>
+                <em>Nota: O ACE-R fornece uma avaliação mais detalhada que o MEEM tradicional.</em>
+            </div>
+
+            <a href="{{ url_for('acer.aplicar_acer') }}" class="btn-voltar">
+                Nova Avaliação
+            </a>
+            
+            <a href="{{ url_for('pagina_inicial.pagina_inicial') }}" class="btn-voltar" style="background-color: #6c757d; margin-top: 10px;">
+                Página Inicial
+            </a>
+
+        {% else %}
+            <div class="interpretacao">
+                Nenhum resultado encontrado.
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
