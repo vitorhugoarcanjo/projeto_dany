@@ -18,6 +18,10 @@ from rotas.pasta_consulta_medica.pasta_moca_b.pagina_2_moca_b import bp_moca_b
 # TESTE MOCA
 from rotas.pasta_consulta_medica.pasta_moca.pagina_3_moca import bp_moca
 
+# TESTE QUESTIONÁRIO DE ATIVIDADES FUNCIONAIS (Pfeffer)
+from rotas.pasta_consulta_medica.pasta_ques_ativ_func.pfeffer import bp_pfeffer
+
+
 app = Flask(__name__)
 app.secret_key = get_secret_key()
 
@@ -35,6 +39,9 @@ app.register_blueprint(bp_moca_b, url_prefix='/moca_b')
 
 # TESTE MOCA
 app.register_blueprint(bp_moca, url_prefix='/moca')
+
+# TESTE PFEFFER
+app.register_blueprint(bp_pfeffer, url_prefix='/pfeffer')
 
 
 @app.route('/')

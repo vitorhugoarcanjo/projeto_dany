@@ -66,7 +66,24 @@ def criar_tabelas():
         data_aplicacao DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (paciente_id) REFERENCES pacientes (id)
     )
-    ''');
+    ''')
+
+    # QUESTIONÁRIO DE ATIVIDADES FUNCIONAIS (Pfeffer) 
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS aplicacoes_pfeffer (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        paciente_id INTEGER NOT NULL,
+        informante TEXT,
+        parentesco TEXT,
+        dados_respostas TEXT,
+        pontuacao_total INTEGER,
+        interpretacao TEXT,
+        data_aplicacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (paciente_id) REFERENCES pacientes (id)
+    )
+    ''')
+
+
     
     conn.commit()
     conn.close()

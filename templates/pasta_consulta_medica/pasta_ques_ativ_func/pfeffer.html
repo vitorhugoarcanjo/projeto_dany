@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário de Atividades Funcionais - Pfeffer</title>
+    <style>
+        form {
+            background-color: #fff;
+            padding: 30px 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+            max-width: 900px;
+            margin: 35px auto 55px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #1a2732;
+            margin-bottom: 32px;
+        }
+
+        .dados-paciente {
+            background: #f0f4fb;
+            border: 1.5px solid #ced6e0;
+            border-radius: 8px;
+            padding: 14px 25px;
+            margin-bottom: 40px;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 19px;
+            align-items: flex-end;
+            background-color: #f7f9fb;
+            border-radius: 6px;
+            padding: 11px 13px;
+            border: 1px solid #e3e3f6;
+        }
+
+        .flex-item {
+            flex: 1 1 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex-item label {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1.2px solid #abb8c3;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+        }
+
+        .questao {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .questao h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .opcoes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .opcao-group {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        .opcao-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background: white;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 30px;
+            width: 100%;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .instrucoes {
+            background: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 12px 15px;
+            margin: 10px 0;
+            font-size: 13px;
+            color: #2c3e50;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <h1>QUESTIONÁRIO DE ATIVIDADES FUNCIONAIS</h1>
+        <h2>(Pfeffer et al., 1982)</h2>
+
+        <div class="instrucoes">
+            <strong>Instruções:</strong> Este questionário foi modificado para ser utilizado por pessoas com escolaridade heterogênea. 
+            Pode ser respondido diretamente pelo informante ou aplicado pelo examinador. As respostas seguem sempre os mesmos critérios.
+        </div>
+
+        <!-- DADOS DO PACIENTE -->
+        <div class="dados-paciente">
+            <h2>Dados do Paciente</h2>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="nome_paciente">Nome do Paciente:</label>
+                    <input type="text" id="nome_paciente" name="nome_paciente" value="{{ paciente.nome }}" readonly>
+                </div>
+                <div class="flex-item">
+                    <label for="data_avaliacao">Data de Avaliação:</label>
+                    <input type="date" id="data_avaliacao" name="data_avaliacao" value="{{ data_atual }}" required>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="informante">Informante:</label>
+                    <input type="text" id="informante" name="informante" placeholder="Nome do informante" required>
+                </div>
+                <div class="flex-item">
+                    <label for="parentesco">Parentesco/Função:</label>
+                    <input type="text" id="parentesco" name="parentesco" placeholder="Ex: Filho(a), Cônjuge, Cuidador" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 1 -->
+        <div class="questao">
+            <h3>1) Ele(a) manuseia seu próprio dinheiro?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_1" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Faz, com dificuldade</option>
+                        <option value="2">2 = Necessita de ajuda</option>
+                        <option value="3">3 = Não é capaz</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca o fez, mas poderia fazê-lo agora</option>
+                        <option value="1">1 = Nunca o fez e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 2 -->
+        <div class="questao">
+            <h3>2) Ele(a) é capaz de comprar roupas, comida, coisas para casa sozinho(a)?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_2" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Faz, com dificuldade</option>
+                        <option value="2">2 = Necessita de ajuda</option>
+                        <option value="3">3 = Não é capaz</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca o fez, mas poderia fazê-lo agora</option>
+                        <option value="1">1 = Nunca o fez e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 3 -->
+        <div class="questao">
+            <h3>3) Ele(a) é capaz de esquentar a água para o café e apagar o fogo?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_3" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Faz, com dificuldade</option>
+                        <option value="2">2 = Necessita de ajuda</option>
+                        <option value="3">3 = Não é capaz</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca o fez, mas poderia fazê-lo agora</option>
+                        <option value="1">1 = Nunca o fez e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 4 -->
+        <div class="questao">
+            <h3>4) Ele(a) é capaz de preparar uma comida?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_4" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Faz, com dificuldade</option>
+                        <option value="2">2 = Necessita de ajuda</option>
+                        <option value="3">3 = Não é capaz</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca o fez, mas poderia fazê-lo agora</option>
+                        <option value="1">1 = Nunca o fez e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 5 -->
+        <div class="questao">
+            <h3>5) Ele(a) é capaz de manter-se em dia com as atualidades, com os acontecimentos da comunidade ou da vizinhança?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_5" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Faz, com dificuldade</option>
+                        <option value="2">2 = Necessita de ajuda</option>
+                        <option value="3">3 = Não é capaz</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca o fez, mas poderia fazê-lo agora</option>
+                        <option value="1">1 = Nunca o fez e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 6 -->
+        <div class="questao">
+            <h3>6) Ele(a) é capaz de prestar atenção, entender e discutir um programa de rádio ou televisão, um jornal ou uma revista?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_6" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Faz, com dificuldade</option>
+                        <option value="2">2 = Necessita de ajuda</option>
+                        <option value="3">3 = Não é capaz</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca o fez, mas poderia fazê-lo agora</option>
+                        <option value="1">1 = Nunca o fez e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 7 -->
+        <div class="questao">
+            <h3>7) Ele(a) é capaz de lembrar-se de compromissos, acontecimentos familiares, feriados?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_7" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Faz, com dificuldade</option>
+                        <option value="2">2 = Necessita de ajuda</option>
+                        <option value="3">3 = Não é capaz</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca o fez, mas poderia fazê-lo agora</option>
+                        <option value="1">1 = Nunca o fez e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 8 -->
+        <div class="questao">
+            <h3>8) Ele(a) é capaz de manusear seus próprios remédios?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_8" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Faz, com dificuldade</option>
+                        <option value="2">2 = Necessita de ajuda</option>
+                        <option value="3">3 = Não é capaz</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca o fez, mas poderia fazê-lo agora</option>
+                        <option value="1">1 = Nunca o fez e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 9 -->
+        <div class="questao">
+            <h3>9) Ele(a) é capaz de passear pela vizinhança e encontrar o caminho de volta para casa?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_9" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Faz, com dificuldade</option>
+                        <option value="2">2 = Necessita de ajuda</option>
+                        <option value="3">3 = Não é capaz</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca o fez, mas poderia fazê-lo agora</option>
+                        <option value="1">1 = Nunca o fez e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 10 -->
+        <div class="questao">
+            <h3>10) Ele(a) pode ser deixado(a) em casa sozinho(a) de forma segura?</h3>
+            <div class="opcoes">
+                <div class="opcao-group">
+                    <label>Capacidade Atual:</label>
+                    <select name="questao_10" required>
+                        <option value="">Selecione</option>
+                        <option value="0">0 = Normal</option>
+                        <option value="1">1 = Sim, mas com precauções</option>
+                        <option value="2">2 = Sim, por períodos curtos</option>
+                        <option value="3">3 = Não poderia</option>
+                    </select>
+                </div>
+                <div class="opcao-group">
+                    <label>Capacidade Prévia (se aplicável):</label>
+                    <select>
+                        <option value="">Selecione (opcional)</option>
+                        <option value="0">0 = Nunca ficou, mas poderia ficar agora</option>
+                        <option value="1">1 = Nunca ficou e agora teria dificuldade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit">Calcular Pontuação</button>
+    </form>
+</body>
+</html>
