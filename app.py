@@ -15,6 +15,8 @@ from rotas.pasta_consulta_medica.pasta_meen_g.pagina_1_meen_g import bp_meem_g
 # TESTE MOCA B
 from rotas.pasta_consulta_medica.pasta_moca_b.pagina_2_moca_b import bp_moca_b
 
+# TESTE MOCA
+from rotas.pasta_consulta_medica.pasta_moca.pagina_3_moca import bp_moca
 
 app = Flask(__name__)
 app.secret_key = get_secret_key()
@@ -26,10 +28,14 @@ app.register_blueprint(bp_pagina_inicial, url_prefix='/pagina_inicial')
 app.register_blueprint(bp_cadastro, url_prefix='/cadastro')
 
 # TESTE MEEN_G
-app.register_blueprint(bp_meem_g, url_prefix='/meen_g')
+app.register_blueprint(bp_meem_g, url_prefix='/meem_g')
 
 # TESTE MOCA B
 app.register_blueprint(bp_moca_b, url_prefix='/moca_b')
+
+# TESTE MOCA
+app.register_blueprint(bp_moca, url_prefix='/moca')
+
 
 @app.route('/')
 def pagina_inicial():

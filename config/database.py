@@ -52,6 +52,21 @@ def criar_tabelas():
         FOREIGN KEY (paciente_id) REFERENCES pacientes (id)
     )
     ''')
+
+
+    # TABELA MOCA
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS aplicacoes_moca (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        paciente_id INTEGER NOT NULL,
+        escolaridade TEXT,
+        dados_respostas TEXT,
+        pontuacao_total INTEGER,
+        interpretacao TEXT,
+        data_aplicacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (paciente_id) REFERENCES pacientes (id)
+    )
+    ''');
     
     conn.commit()
     conn.close()

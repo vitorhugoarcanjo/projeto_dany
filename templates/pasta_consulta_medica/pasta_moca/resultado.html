@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado - MoCA</title>
+    <style>
+        .resultado-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a2732;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .resultado-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .pontuacao {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .interpretacao {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .normal {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .leve {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeaa7;
+        }
+
+        .demencia_leve {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .demencia_grave {
+            background-color: #dc3545;
+            color: white;
+            border: 2px solid #c82333;
+        }
+
+        .info-box {
+            background: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .btn-voltar {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-voltar:hover {
+            background-color: #2980b9;
+        }
+
+        .data-aplicacao {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="resultado-container">
+        <h1>Resultado - Avaliação MoCA</h1>
+        
+        {% if resultado %}
+            <div class="pontuacao">
+                {{ resultado.pontuacao_total }}/30
+            </div>
+
+            <div class="interpretacao {{ resultado.classificacao }}">
+                {{ resultado.interpretacao }}
+            </div>
+
+            <div class="info-box">
+                <strong>Interpretação dos Resultados:</strong><br>
+                • <strong>26-30 pontos:</strong> Cognição normal<br>
+                • <strong>18-25 pontos:</strong> Comprometimento cognitivo leve<br>
+                • <strong>10-17 pontos:</strong> Demência leve<br>
+                • <strong>0-9 pontos:</strong> Demência moderada/grave
+            </div>
+
+            {% if resultado.data_aplicacao %}
+            <div class="data-aplicacao">
+                Data da aplicação: {{ resultado.data_aplicacao }}
+            </div>
+            {% endif %}
+
+        {% else %}
+            <div class="interpretacao">
+                Nenhum resultado encontrado.
+            </div>
+        {% endif %}
+
+        <a href="{{ url_for('moca.aplicar_moca') }}" class="btn-voltar">
+            Nova Avaliação
+        </a>
+        
+        <a href="{{ url_for('pagina_inicial.pagina_inicial') }}" class="btn-voltar" style="background-color: #6c757d; margin-top: 10px;">
+            Página Inicial
+        </a>
+    </div>
+</body>
+</html>

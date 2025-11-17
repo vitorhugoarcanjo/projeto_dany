@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOCA - Avaliação Cognitiva Montreal</title>
+    <style>
+        /* MANTENHA TODOS OS SEUS ESTILOS DO MEEM AQUI */
+        form {
+            background-color: #fff;
+            padding: 30px 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+            max-width: 900px;
+            margin: 35px auto 55px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a2732;
+            font-weight: 700;
+            font-size: 29px;
+            margin-bottom: 32px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: #2e4057;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 21px;
+            border-bottom: 2px solid #a4b0be;
+            padding-bottom: 8px;
+        }
+
+        .dados-paciente {
+            background: #f0f4fb;
+            border: 1.5px solid #ced6e0;
+            border-radius: 8px;
+            padding: 14px 25px;
+            margin-bottom: 40px;
+        }
+
+        fieldset {
+            border: none;
+            margin-bottom: 36px;
+            padding: 0;
+        }
+
+        legend {
+            background: #dde7fa;
+            color: #1d3457;
+            font-weight: bold;
+            font-size: 17px;
+            letter-spacing: 0.5px;
+            padding: 6px 15px;
+            border-radius: 7px;
+            margin-bottom: 18px;
+            border: 1px solid #cdd0e5;
+            display: inline-block;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 19px;
+            align-items: flex-end;
+            background-color: #f7f9fb;
+            border-radius: 6px;
+            padding: 11px 13px 12px 13px;
+            border: 1px solid #e3e3f6;
+        }
+
+        .flex-item {
+            flex: 1 1 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .flex-item.pontuacao {
+            flex: 0 0 88px;
+            max-width: 88px;
+        }
+
+        .flex-item label {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 14px;
+            letter-spacing: 0.01em;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1.2px solid #abb8c3;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            max-width: 55px;
+            height: 40px;
+            text-align: center;
+            font-size: 17px;
+            font-weight: bold;
+            padding-right: 0;
+        }
+
+        .campo-pontuacao {
+            width: 100%;
+            max-width: 55px;
+            height: 40px;
+            text-align: center;
+            font-size: 17px;
+            font-weight: bold;
+            padding-right: 0;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 30px;
+            width: 100%;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 8px rgba(20,60,130,0.07);
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #495057;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background-color: white;
+            border: 1px solid #dee2e6;
+        }
+
+        .checkbox-label:hover {
+            background-color: #e9ecef;
+            border-color: #3498db;
+        }
+
+        .checkbox-animal {
+            display: none;
+        }
+
+        .checkbox-animal:checked + .checkmark {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+
+        .checkmark {
+            position: relative;
+            height: 18px;
+            width: 18px;
+            background-color: white;
+            border: 2px solid #adb5bd;
+            border-radius: 3px;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .instrucoes {
+            background: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 12px 15px;
+            margin: 10px 0;
+            font-size: 13px;
+            color: #2c3e50;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .subtracao-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .subtracao-item label {
+            min-width: 60px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <h1>MONTREAL COGNITIVE ASSESSMENT (MOCA)</h1>
+        <h2>Versão Experimental Brasileira</h2>
+
+        <!-- DADOS DO PACIENTE -->
+        <div class="dados-paciente">
+        <h2>Dados do Paciente</h2>
+        <div class="flex-row">
+                <div class="flex-item">
+                <label for="nome_paciente">Nome:</label>
+                <input type="text" id="nome_paciente" name="nome_paciente" value="{{ paciente.nome }}" readonly>
+                </div>
+                <div class="flex-item">
+                <label for="escolaridade">Escolaridade (anos):</label>
+                <input type="number" id="escolaridade" name="escolaridade" min="0" max="30" required>
+                </div>
+        </div>
+        <div class="flex-row">
+                <div class="flex-item">
+                <label for="cpf_paciente">CPF:</label>
+                <input type="text" id="cpf_paciente" name="cpf_paciente" value="{{ paciente.cpf }}" readonly>
+                </div>
+                <div class="flex-item">
+                <label for="data_nascimento_paciente">Data de Nascimento:</label>
+                <input type="text" id="data_nascimento_paciente" name="data_nascimento_paciente" value="{{ paciente.data_nascimento }}" readonly>
+                </div>
+                <div class="flex-item">
+                <label for="data_avaliacao">Data de Avaliação:</label>
+                <input type="date" id="data_avaliacao" name="data_avaliacao" value="{{ data_atual }}" required>
+                </div>
+        </div>
+        </div>
+
+        <!-- VISUOSPACIAL / EXECUTIVA -->
+        <fieldset>
+            <legend>VISUOSPACIAL / EXECUTIVA</legend>
+            
+            <!-- Alternância de Trilha -->
+            <div class="instrucoes">
+                <strong>Alternância de Trilha:</strong> "Desenhe uma linha indo de um número para uma letra em ordem ascendente: 1-A-2-B-3-C-4-D-5-E"
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="trilha_pontos">Trilha (0-1 ponto):</label>
+                    <input type="number" id="trilha_pontos" name="trilha_pontos" min="0" max="1" class="campo-pontuacao">
+                </div>
+            </div>
+
+            <!-- Cubo -->
+            <div class="instrucoes">
+                <strong>Cubo:</strong> "Copie este desenho o mais precisamente que você puder"
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="cubo_pontos">Cubo (0-1 ponto):</label>
+                    <input type="number" id="cubo_pontos" name="cubo_pontos" min="0" max="1" class="campo-pontuacao">
+                </div>
+            </div>
+
+            <!-- Relógio -->
+            <div class="instrucoes">
+                <strong>Relógio:</strong> "Desenhe um relógio. Coloque todos os números e marque a hora 11:10"
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="relogio_contorno">Contorno (0-1 ponto):</label>
+                    <input type="number" id="relogio_contorno" name="relogio_contorno" min="0" max="1" class="campo-pontuacao">
+                </div>
+                <div class="flex-item">
+                    <label for="relogio_numeros">Números (0-1 ponto):</label>
+                    <input type="number" id="relogio_numeros" name="relogio_numeros" min="0" max="1" class="campo-pontuacao">
+                </div>
+                <div class="flex-item">
+                    <label for="relogio_ponteiros">Ponteiros (0-1 ponto):</label>
+                    <input type="number" id="relogio_ponteiros" name="relogio_ponteiros" min="0" max="1" class="campo-pontuacao">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- NOMEAÇÃO -->
+        <fieldset>
+            <legend>NOMEAÇÃO</legend>
+            <div class="instrucoes">
+                "Me diga o nome desse animal"
+            </div>
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="camelo" value="1">
+                    <span class="checkmark"></span>
+                    <span>Camelo/Dromedário</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="leao" value="1">
+                    <span class="checkmark"></span>
+                    <span>Leão</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="rinoceronte" value="1">
+                    <span class="checkmark"></span>
+                    <span>Rinoceronte</span>
+                </label>
+            </div>
+        </fieldset>
+
+        <!-- MEMÓRIA - Evocação Tardia -->
+        <fieldset>
+            <legend>MEMÓRIA - Evocação Tardia</legend>
+            <div class="instrucoes">
+                "Me diga quantas palavras você consegue lembrar da lista que eu li anteriormente"
+            </div>
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="memoria_rosto" value="1">
+                    <span class="checkmark"></span>
+                    <span>Rosto</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="memoria_veludo" value="1">
+                    <span class="checkmark"></span>
+                    <span>Veludo</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="memoria_igreja" value="1">
+                    <span class="checkmark"></span>
+                    <span>Igreja</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="memoria_margarida" value="1">
+                    <span class="checkmark"></span>
+                    <span>Margarida</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="memoria_vermelho" value="1">
+                    <span class="checkmark"></span>
+                    <span>Vermelho</span>
+                </label>
+            </div>
+        </fieldset>
+
+        <!-- ATENÇÃO -->
+        <fieldset>
+            <legend>ATENÇÃO</legend>
+            
+            <!-- Dígitos -->
+            <div class="instrucoes">
+                <strong>Dígitos:</strong> Repetir sequência de números (direta e inversa)
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="digitos_direta">Ordem Direta (0-1 ponto):</label>
+                    <input type="number" id="digitos_direta" name="digitos_direta" min="0" max="1" class="campo-pontuacao">
+                </div>
+                <div class="flex-item">
+                    <label for="digitos_inversa">Ordem Inversa (0-1 ponto):</label>
+                    <input type="number" id="digitos_inversa" name="digitos_inversa" min="0" max="1" class="campo-pontuacao">
+                </div>
+            </div>
+
+            <!-- Vigilância -->
+            <div class="instrucoes">
+                <strong>Vigilância:</strong> Bater a mão ao ouvir a letra "A"
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="vigilancia">Vigilância (0-1 ponto):</label>
+                    <input type="number" id="vigilancia" name="vigilancia" min="0" max="1" class="campo-pontuacao">
+                </div>
+            </div>
+
+            <!-- Subtração Seriada -->
+            <div class="instrucoes">
+                <strong>Subtração Seriada:</strong> "Subtraia 7 a partir de 100, e continue subtraindo 7"
+            </div>
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="subtracao_93" value="1">
+                    <span class="checkmark"></span>
+                    <span>100 - 7 = 93</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="subtracao_86" value="1">
+                    <span class="checkmark"></span>
+                    <span>93 - 7 = 86</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="subtracao_79" value="1">
+                    <span class="checkmark"></span>
+                    <span>86 - 7 = 79</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="subtracao_72" value="1">
+                    <span class="checkmark"></span>
+                    <span>79 - 7 = 72</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="subtracao_65" value="1">
+                    <span class="checkmark"></span>
+                    <span>72 - 7 = 65</span>
+                </label>
+            </div>
+        </fieldset>
+
+        <!-- LINGUAGEM -->
+        <fieldset>
+            <legend>LINGUAGEM</legend>
+            
+            <!-- Repetição de Sentenças -->
+            <div class="instrucoes">
+                <strong>Repetição de Sentenças:</strong> "Repita depois de mim, exatamente como eu disser"
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="sentenca_1">"Só sei que nada sei" (0-1 ponto):</label>
+                    <input type="number" id="sentenca_1" name="sentenca_1" min="0" max="1" class="campo-pontuacao">
+                </div>
+                <div class="flex-item">
+                    <label for="sentenca_2">"O gato sempre se esconde..." (0-1 ponto):</label>
+                    <input type="number" id="sentenca_2" name="sentenca_2" min="0" max="1" class="campo-pontuacao">
+                </div>
+            </div>
+
+            <!-- Fluência Verbal -->
+            <div class="instrucoes">
+                <strong>Fluência Verbal:</strong> Dizer palavras com F (11+ palavras = 1 ponto)
+            </div>
+            <div class="flex-row">
+                <div class="flex-item">
+                    <label for="fluencia_verbal">Fluência Verbal (0-1 ponto):</label>
+                    <input type="number" id="fluencia_verbal" name="fluencia_verbal" min="0" max="1" class="campo-pontuacao">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- ABSTRAÇÃO -->
+        <fieldset>
+            <legend>ABSTRAÇÃO</legend>
+            <div class="instrucoes">
+                "Diga-me em que esses itens são parecidos"
+            </div>
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="abstracao_trem" value="1">
+                    <span class="checkmark"></span>
+                    <span>Trem-Bicicleta (transportes)</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="abstracao_relogio" value="1">
+                    <span class="checkmark"></span>
+                    <span>Régua-Relógio (medir)</span>
+                </label>
+            </div>
+        </fieldset>
+
+        <!-- ORIENTAÇÃO -->
+        <fieldset>
+            <legend>ORIENTAÇÃO</legend>
+            <div class="instrucoes">
+                "Diga-me a data de hoje, o lugar onde estamos e a cidade"
+            </div>
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="orientacao_dia" value="1">
+                    <span class="checkmark"></span>
+                    <span>Dia do mês</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="orientacao_mes" value="1">
+                    <span class="checkmark"></span>
+                    <span>Mês</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="orientacao_ano" value="1">
+                    <span class="checkmark"></span>
+                    <span>Ano</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="orientacao_dia_semana" value="1">
+                    <span class="checkmark"></span>
+                    <span>Dia da semana</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="orientacao_lugar" value="1">
+                    <span class="checkmark"></span>
+                    <span>Lugar</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox-animal" name="orientacao_cidade" value="1">
+                    <span class="checkmark"></span>
+                    <span>Cidade</span>
+                </label>
+            </div>
+        </fieldset>
+
+        <button type="submit">Calcular Pontuação do MoCA</button>
+    </form>
+
+    <script>
+        // Script para melhorar a usabilidade dos checkboxes
+        document.querySelectorAll('.checkbox-label').forEach(label => {
+            label.addEventListener('click', function() {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                
+                if (checkbox.checked) {
+                    this.classList.add('selected');
+                } else {
+                    this.classList.remove('selected');
+                }
+            });
+        });
+
+        // Calcular idade automaticamente a partir da data de nascimento
+        document.getElementById('data_nascimento').addEventListener('change', function() {
+            const birthDate = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            document.getElementById('idade').value = age;
+        });
+
+        // Data de avaliação padrão = hoje
+        document.getElementById('data_avaliacao').value = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>

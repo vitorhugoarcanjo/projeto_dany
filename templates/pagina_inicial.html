@@ -48,8 +48,14 @@
             MEEM-G
         </a>
         
-        <a href="/cadastro/?proximo=moca_b.aplicar_moca_b" class="teste-btn">
-            MoCA-B
+        <!-- ✅ MOCA-B CORRETO -->
+        <a href="{{ url_for('pagina_inicial.escolher_teste', nome_teste='moca_b.aplicar_moca_b') }}" class="teste-btn">
+            MOCA-B
+        </a>
+
+        <!-- ✅ MOCA CORRETO -->
+        <a href="{{ url_for('pagina_inicial.escolher_teste', nome_teste='moca.aplicar_moca') }}" class="teste-btn">
+            MOCA
         </a>
         
         <!-- <a href="{{ url_for('pagina_inicial.escolher_teste', nome_teste='pagina_3.tela_pagina_3') }}" class="teste-btn">

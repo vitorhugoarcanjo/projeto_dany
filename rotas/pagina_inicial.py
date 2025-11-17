@@ -9,8 +9,14 @@ def pagina_inicial():
 # ADICIONA ESSA ROTA NOVA
 @bp_pagina_inicial.route('/escolher_teste/<string:nome_teste>')
 def escolher_teste(nome_teste):
-    # Guarda qual teste o usuário quer fazer
+    # ✅ LIMPA sessão anterior para evitar conflitos
+    session.clear()
+    
+    # ✅ SALVA o teste escolhido
     session['proximo_teste'] = nome_teste
     
-    # Redireciona pro cadastro
-    return redirect(url_for('cadastro.cadastro'))
+    print(f"🔍 DEBUG - Usuário escolheu: {nome_teste}")
+    print(f"🔍 DEBUG - Redirecionando para cadastro com: proximo={nome_teste}")
+    
+    # ✅ Redireciona pro cadastro COM parâmetro na URL
+    return redirect(url_for('cadastro.cadastro', proximo=nome_teste))
