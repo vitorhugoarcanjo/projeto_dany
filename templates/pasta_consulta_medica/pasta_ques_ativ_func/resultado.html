@@ -94,10 +94,6 @@
             <a href="{{ url_for('pfeffer.aplicar_pfeffer') }}" class="btn-voltar">
                 Nova Avaliação
             </a>
-            
-            <a href="{{ url_for('pagina_inicial.pagina_inicial') }}" class="btn-voltar" style="background-color: #6c757d; margin-top: 10px;">
-                Página Inicial
-            </a>
 
         {% else %}
             <div class="interpretacao">
@@ -105,5 +101,8 @@
             </div>
         {% endif %}
     </div>
+
+    <!-- BOTÕES -->
+    {% include 'componentes/botoes_testes.html' %}
 </body>
 </html>

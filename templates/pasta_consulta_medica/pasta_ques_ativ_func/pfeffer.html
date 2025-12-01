@@ -5,38 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questionário de Atividades Funcionais - Pfeffer</title>
     <style>
+        /* FUNDO DO BODY COM GRADIENTE ROXO */
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #3a086f 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
         form {
             background-color: #fff;
-            padding: 30px 35px;
+            padding: 40px 35px;
             border-radius: 14px;
-            box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             max-width: 900px;
-            margin: 35px auto 55px;
+            margin: 20px auto;
         }
 
         h1, h2 {
             text-align: center;
-            color: #1a2732;
+            color: #6a11cb;
             margin-bottom: 32px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #4d0a9e;
+            border-bottom: 2px solid #8a2be2;
+            padding-bottom: 10px;
+            margin-bottom: 40px;
         }
 
         .dados-paciente {
-            background: #f0f4fb;
-            border: 1.5px solid #ced6e0;
+            background: #f8f4ff;
+            border: 1.5px solid #e0d6f0;
             border-radius: 8px;
-            padding: 14px 25px;
+            padding: 20px 25px;
             margin-bottom: 40px;
+        }
+
+        .dados-paciente h2 {
+            color: #6a11cb;
+            border-bottom: none;
+            margin-bottom: 15px;
         }
 
         .flex-row {
             display: flex;
-            gap: 18px;
-            margin-bottom: 19px;
+            gap: 20px;
+            margin-bottom: 20px;
             align-items: flex-end;
-            background-color: #f7f9fb;
-            border-radius: 6px;
-            padding: 11px 13px;
-            border: 1px solid #e3e3f6;
+            background-color: #faf8ff;
+            border-radius: 8px;
+            padding: 15px 18px;
+            border: 1px solid #ece3ff;
+        }
+
+        @media (max-width: 768px) {
+            .flex-row {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
 
         .flex-item {
@@ -46,94 +85,250 @@
         }
 
         .flex-item label {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
-            color: #34495e;
-            font-size: 14px;
+            color: #4d0a9e;
+            font-size: 15px;
         }
 
         input[type="text"],
         input[type="date"],
         select {
             width: 100%;
-            padding: 7px 10px;
-            border: 1.2px solid #abb8c3;
+            padding: 12px 15px;
+            border: 1.5px solid #8a2be2;
             border-radius: 6px;
             box-sizing: border-box;
-            font-size: 14px;
+            font-size: 15px;
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            color: #2c3e50;
+            color: #4d0a9e;
+            transition: all 0.3s ease;
+            background: #f8f4ff;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #6a11cb;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
         }
 
         .questao {
             margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
+            padding: 25px;
+            background: #f8f4ff;
             border-radius: 8px;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid #6a11cb;
+            transition: all 0.3s ease;
+        }
+
+        .questao:hover {
+            box-shadow: 0 4px 12px rgba(106, 17, 203, 0.15);
+            transform: translateY(-2px);
         }
 
         .questao h3 {
-            color: #2c3e50;
+            color: #4d0a9e;
             margin-bottom: 15px;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4;
         }
 
         .opcoes {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 10px;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .opcoes {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
         }
 
         .opcao-group {
             background: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 6px;
-            border: 1px solid #dee2e6;
+            border: 1px solid #e0d6f0;
+            transition: all 0.3s ease;
+        }
+
+        .opcao-group:hover {
+            border-color: #8a2be2;
+            box-shadow: 0 2px 8px rgba(138, 43, 226, 0.1);
         }
 
         .opcao-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #495057;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #6a11cb;
+            font-size: 14px;
         }
 
         select {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
+            padding: 10px;
+            border: 2px solid #8a2be2;
+            border-radius: 6px;
             background: white;
+            color: #4d0a9e;
+            font-weight: 500;
+            cursor: pointer;
         }
 
+        select:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+        }
+
+        /* BOTÃO ROXO */
         button {
-            background-color: #3498db;
+            background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
             color: white;
-            padding: 14px 20px;
+            padding: 18px 24px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 18px;
-            margin-top: 30px;
+            margin-top: 40px;
             width: 100%;
             font-weight: 700;
-            transition: background-color 0.3s;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+            transition: all 0.3s ease;
         }
 
         button:hover {
-            background-color: #2980b9;
+            background: linear-gradient(135deg, #4d0a9e 0%, #6a11cb 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
         }
 
         .instrucoes {
-            background: #e8f4fc;
-            border-left: 4px solid #3498db;
-            padding: 12px 15px;
-            margin: 10px 0;
-            font-size: 13px;
-            color: #2c3e50;
-            border-radius: 0 4px 4px 0;
+            background: #e6e6fa;
+            border-left: 4px solid #6a11cb;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #4d0a9e;
+            border-radius: 0 8px 8px 0;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* Header com logo */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto 40px auto;
+        }
+
+        .logo {
+            color: #6a11cb;
+            font-size: 2.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .logo-subtitle {
+            color: #4d0a9e;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Número da questão */
+        .questao-numero {
+            display: inline-block;
+            background: #6a11cb;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            form {
+                padding: 25px 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .header {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+            
+            .questao {
+                padding: 20px;
+            }
+            
+            button {
+                padding: 16px 20px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 22px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .questao h3 {
+                font-size: 16px;
+            }
+            
+            .instrucoes {
+                font-size: 13px;
+                padding: 12px 15px;
+            }
+        }
+
+        /* Estilização das opções do select */
+        select option {
+            padding: 10px;
+            color: #4d0a9e;
+        }
+
+        select option:checked {
+            background: #e6e6fa;
+            color: #6a11cb;
+            font-weight: 600;
         }
     </style>
 </head>

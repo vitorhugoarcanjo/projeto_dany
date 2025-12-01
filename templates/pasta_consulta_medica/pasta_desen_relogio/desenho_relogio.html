@@ -5,27 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste do Desenho do Relógio</title>
     <style>
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         form {
             background-color: #fff;
             padding: 30px 35px;
             border-radius: 14px;
-            box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             max-width: 900px;
-            margin: 35px auto 55px;
+            margin: 20px auto;
         }
 
         h1, h2 {
             text-align: center;
-            color: #1a2732;
+            color: #6a11cb;
             margin-bottom: 32px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #4d0a9e;
+            border-bottom: 2px solid #8a2be2;
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+        }
+
+        h3 {
+            color: #4d0a9e;
+            margin: 25px 0 15px 0;
+            font-size: 20px;
+            border-left: 4px solid #6a11cb;
+            padding-left: 10px;
         }
 
         .dados-paciente {
-            background: #f0f4fb;
-            border: 1.5px solid #ced6e0;
+            background: #f8f4ff;
+            border: 1.5px solid #e0d6f0;
             border-radius: 8px;
             padding: 14px 25px;
             margin-bottom: 40px;
+        }
+
+        .dados-paciente h2 {
+            color: #6a11cb;
+            border-bottom: none;
+            margin-bottom: 5px;
         }
 
         .flex-row {
@@ -33,10 +71,10 @@
             gap: 18px;
             margin-bottom: 19px;
             align-items: flex-end;
-            background-color: #f7f9fb;
+            background-color: #faf8ff;
             border-radius: 6px;
             padding: 11px 13px;
-            border: 1px solid #e3e3f6;
+            border: 1px solid #ece3ff;
         }
 
         .flex-item {
@@ -48,7 +86,7 @@
         .flex-item label {
             margin-bottom: 5px;
             font-weight: 600;
-            color: #34495e;
+            color: #4d0a9e;
             font-size: 14px;
         }
 
@@ -58,34 +96,48 @@
         select,
         textarea {
             width: 100%;
-            padding: 7px 10px;
-            border: 1.2px solid #abb8c3;
+            padding: 10px 12px;
+            border: 1.5px solid #8a2be2;
             border-radius: 6px;
             box-sizing: border-box;
             font-size: 14px;
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            color: #2c3e50;
+            color: #4d0a9e;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #6a11cb;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
         }
 
         input[type="number"] {
             width: 100%;
-            max-width: 80px;
+            max-width: 100px;
             text-align: center;
             font-size: 17px;
             font-weight: bold;
+            background: #f8f4ff;
+            border: 2px solid #6a11cb;
         }
 
         textarea {
             min-height: 100px;
             resize: vertical;
+            background: #f8f4ff;
         }
 
         .instrucoes {
-            background: #e8f4fc;
-            border-left: 4px solid #3498db;
+            background: #e6e6fa;
+            border-left: 4px solid #6a11cb;
             padding: 15px;
             margin: 20px 0;
             border-radius: 0 4px 4px 0;
+            color: #4d0a9e;
+            font-weight: 500;
         }
 
         .tabela-avaliacao {
@@ -93,36 +145,61 @@
             border-collapse: collapse;
             margin: 20px 0;
             background: white;
+            border: 2px solid #8a2be2;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .tabela-avaliacao th {
-            background: #3498db;
+            background: #6a11cb;
             color: white;
-            padding: 12px;
+            padding: 15px;
             text-align: left;
+            font-weight: 600;
+            font-size: 16px;
         }
 
         .tabela-avaliacao td {
-            padding: 12px;
-            border-bottom: 1px solid #dee2e6;
+            padding: 14px;
+            border-bottom: 1px solid #e0d6f0;
+            color: #4d0a9e;
         }
 
         .tabela-avaliacao tr:nth-child(even) {
-            background: #f8f9fa;
+            background: #f8f4ff;
+        }
+
+        .tabela-avaliacao tr:hover {
+            background: #ece3ff;
+        }
+
+        .tabela-avaliacao td:first-child {
+            font-weight: 700;
+            color: #6a11cb;
+            text-align: center;
+            font-size: 18px;
+            width: 80px;
         }
 
         .campo-pontuacao {
-            background: #f8f9fa;
-            padding: 20px;
+            background: #f8f4ff;
+            padding: 25px;
             border-radius: 8px;
-            margin: 20px 0;
+            margin: 25px 0;
             border-left: 4px solid #28a745;
+            border: 2px solid #8a2be2;
+        }
+
+        .campo-pontuacao label {
+            color: #6a11cb;
+            font-weight: 700;
+            font-size: 16px;
         }
 
         button {
-            background-color: #3498db;
+            background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
             color: white;
-            padding: 14px 20px;
+            padding: 16px 24px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -130,11 +207,95 @@
             margin-top: 30px;
             width: 100%;
             font-weight: 700;
-            transition: background-color 0.3s;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+            transition: all 0.3s ease;
         }
 
         button:hover {
-            background-color: #2980b9;
+            background: linear-gradient(135deg, #4d0a9e 0%, #6a11cb 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
+        }
+
+        /* Header com logo */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            color: #6a11cb;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .logo-subtitle {
+            color: #4d0a9e;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .flex-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .flex-item {
+                width: 100%;
+            }
+            
+            form {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            .tabela-avaliacao {
+                font-size: 14px;
+            }
+            
+            .tabela-avaliacao th,
+            .tabela-avaliacao td {
+                padding: 10px;
+            }
+        }
+
+        /* Estilos específicos para tabela */
+        .tabela-avaliacao tr td:nth-child(2) {
+            font-weight: 600;
+            color: #4d0a9e;
+        }
+
+        .tabela-avaliacao tr td:nth-child(3) {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Badge para pontuação */
+        .pontuacao-badge {
+            display: inline-block;
+            background: #6a11cb;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-right: 10px;
         }
     </style>
 </head>

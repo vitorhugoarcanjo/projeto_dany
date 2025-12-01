@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='pasta_paciente/cadastro_paciente.css') }}">
     <title>Cadastro Paciente</title>
-    
 </head>
 <body>
     <h1>Cadastro de Paciente</h1>
@@ -21,78 +20,97 @@
     {% endwith %}
 
     <form method="post">
-        <label>Nome</label><br>
-        <input type="text" name="nome" required value="{{ nome|default('') }}"><br><br>
-
         <label>CPF</label><br>
-        <input type="text" name="cpf" required pattern="\d{3}\.\d{3}\.\d{3}\-\d{2}" placeholder="000.000.000-00" value="{{ cpf | default('') }}"><br><br>
+        <input type="text" name="cpf" id="cpf" required pattern="\d{3}\.\d{3}\.\d{3}\-\d{2}" 
+               placeholder="000.000.000-00" value="{{ cpf | default('') }}"><br><br>
+
+        <label>Nome</label><br>
+        <input type="text" name="nome" id="nome" required value="{{ nome|default('') }}"><br><br>
 
         <label>Telefone</label><br>
-        <input type="tel" name="telefone" placeholder="(00) 00000-0000" value="{{ telefone|default('') }}"><br><br>
+        <input type="tel" name="telefone" id="telefone" placeholder="(00) 00000-0000" 
+               value="{{ telefone|default('') }}" required><br><br>
 
         <label>Data de nascimento</label><br>
-        <input type="date" name="data_nascimento" value="{{ data_nascimento|default('') }}"><br><br>
+        <input type="date" name="data_nascimento" id="data_nascimento" 
+               value="{{ data_nascimento|default('') }}" required><br><br>
 
         <button type="submit" id="btn-cadastrar">Cadastrar</button>
         <button type="button" id="btn-iniciar" style="display:none;">Iniciar Atendimento</button>
+        <a href="{{ url_for('pagina_inicial') }}" class="btn-style">VOLTAR</a>
     </form>
-</body>
 
-<script>
-document.querySelector('input[name="cpf"]').addEventListener('blur', function() {
-    const cpf = this.value;
-
-    fetch('/cadastro/verificar_cpf', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cpf: cpf })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.existe) {
-            alert('CPF já cadastrado! Dados carregados no formulário.');
-
-            document.querySelector('input[name="nome"]').value = data.nome || '';
-            document.querySelector('input[name="telefone"]').value = data.telefone || '';
-            if (data.data_nascimento) {
-                document.querySelector('input[name="data_nascimento"]').value = data.data_nascimento;
-            }
-
-            // Mostrar botão "Iniciar" e esconder "Cadastrar"
-            document.getElementById('btn-cadastrar').style.display = 'none';
-            const btnIniciar = document.getElementById('btn-iniciar');
-            btnIniciar.style.display = 'inline-block';
-
-            // Configurar clique do botão iniciar para redirecionar DINAMICAMENTE
-            btnIniciar.onclick = function() {
-                // Se veio de um teste específico, redireciona pra ele
-                if (data.redirect_url) {
-                    window.location.href = data.redirect_url;
-                } else {
-                    // Se não, vai pro MEEM-G como padrão
-                    window.location.href = '/meem_g/';
-                }
-            };
-
-        } else {
-            alert('CPF não encontrado. Continue com o cadastro.');
-
-            document.querySelector('input[name="nome"]').value = '';
-            document.querySelector('input[name="telefone"]').value = '';
-            document.querySelector('input[name="data_nascimento"]').value = '';
-
-            // Mostrar botão "Cadastrar" e esconder "Iniciar"
-            document.getElementById('btn-cadastrar').style.display = 'inline-block';
-            document.getElementById('btn-iniciar').style.display = 'none';
+    <script>
+    document.querySelector('input[name="cpf"]').addEventListener('blur', function() {
+        const cpf = this.value;
+        
+        // ✅ Validação básica do formato CPF
+        if (!cpf.match(/\d{3}\.\d{3}\.\d{3}\-\d{2}/)) {
+            return; // Não faz busca se CPF não está no formato correto
         }
-    })
-    .catch(error => {
-        console.error('Erro ao verificar CPF:', error);
-        alert('Erro ao verificar CPF. Tente novamente.');
+
+        console.log('🔍 Verificando CPF:', cpf);
+
+        fetch('/cadastro/verificar_cpf', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cpf: cpf })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('📦 Resposta da API:', data);
+            
+            if (data.existe) {
+                // ✅ Preenche os campos com os dados do paciente
+                document.querySelector('input[name="nome"]').value = data.nome || '';
+                document.querySelector('input[name="telefone"]').value = data.telefone || '';
+                if (data.data_nascimento) {
+                    document.querySelector('input[name="data_nascimento"]').value = data.data_nascimento;
+                }
+
+                // ✅ MOSTRA informações sobre o redirecionamento
+                let mensagem = 'Paciente encontrado! ';
+                
+                if (data.redirect_url) {
+                    mensagem += `Redirecionando para o teste...`;
+                    alert(mensagem);
+                    // ✅ REDIRECIONA AUTOMATICAMENTE se tem URL
+                    setTimeout(() => {
+                        window.location.href = data.redirect_url;
+                    }, 1000);
+                } else {
+                    mensagem += 'Preencha os dados para continuar.';
+                    alert(mensagem);
+                    
+                    // Mostrar botão "Iniciar" e esconder "Cadastrar"
+                    document.getElementById('btn-cadastrar').style.display = 'none';
+                    document.getElementById('btn-iniciar').style.display = 'inline-block';
+
+                    // Configurar clique do botão iniciar
+                    document.getElementById('btn-iniciar').onclick = function() {
+                        alert('Nenhum teste específico selecionado. Você será redirecionado para a página inicial.');
+                        window.location.href = '/';
+                    };
+                }
+
+            } else {
+                alert('CPF não encontrado. Continue com o cadastro.');
+
+                // Limpa os campos para novo cadastro
+                document.querySelector('input[name="nome"]').value = '';
+                document.querySelector('input[name="telefone"]').value = '';
+                document.querySelector('input[name="data_nascimento"]').value = '';
+
+                // Mostrar botão "Cadastrar" e esconder "Iniciar"
+                document.getElementById('btn-cadastrar').style.display = 'inline-block';
+                document.getElementById('btn-iniciar').style.display = 'none';
+            }
+        })
+        .catch(error => {
+            console.error('❌ Erro ao verificar CPF:', error);
+            alert('Erro ao verificar CPF. Tente novamente.');
+        });
     });
-});
-
-
-</script>
-
+    </script>
+</body>
 </html>

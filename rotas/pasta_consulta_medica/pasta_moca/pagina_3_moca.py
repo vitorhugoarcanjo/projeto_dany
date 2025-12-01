@@ -147,8 +147,6 @@ def aplicar_moca():
             'data_aplicacao': datetime.now().strftime('%d/%m/%Y %H:%M')
         }
 
-        # LIMPA o paciente_id da sessão para evitar conflitos
-        session.pop('paciente_id', None)
 
         # REDIRECIONA PRA PÁGINA DE RESULTADO
         return redirect(url_for('moca.resultado_moca'))

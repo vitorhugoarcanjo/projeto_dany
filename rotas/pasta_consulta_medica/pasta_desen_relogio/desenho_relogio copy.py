@@ -85,6 +85,9 @@ def aplicar_relogio():
             'comentarios': dados_relogio['comentarios']
         }
 
+        # LIMPA sessão
+        session.pop('paciente_id', None)
+
         # REDIRECIONA PARA RESULTADO
         return redirect(url_for('relogio.resultado_relogio'))
 

@@ -219,15 +219,15 @@
                 Nova Avaliação
             </a>
             
-            <a href="{{ url_for('pagina_inicial.pagina_inicial') }}" class="btn-voltar" style="background-color: #6c757d; margin-top: 10px;">
-                Página Inicial
-            </a>
 
         {% else %}
             <div class="interpretacao">
                 Nenhum resultado encontrado.
             </div>
         {% endif %}
+
+        <!-- BOTÕES -->
+        {% include 'componentes/botoes_testes.html' %}
     </div>
 </body>
 </html>

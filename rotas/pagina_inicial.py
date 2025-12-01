@@ -14,9 +14,7 @@ def escolher_teste(nome_teste):
     
     # ✅ SALVA o teste escolhido
     session['proximo_teste'] = nome_teste
-    
-    print(f"🔍 DEBUG - Usuário escolheu: {nome_teste}")
-    print(f"🔍 DEBUG - Redirecionando para cadastro com: proximo={nome_teste}")
+
     
     # ✅ Redireciona pro cadastro COM parâmetro na URL
     return redirect(url_for('cadastro.cadastro', proximo=nome_teste))

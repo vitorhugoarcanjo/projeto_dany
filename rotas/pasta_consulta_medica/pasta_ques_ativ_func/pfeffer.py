@@ -106,8 +106,6 @@ def aplicar_pfeffer():
             'data_aplicacao': datetime.now().strftime('%d/%m/%Y %H:%M')
         }
 
-        # LIMPA sessão
-        session.pop('paciente_id', None)
 
         # REDIRECIONA PARA RESULTADO
         return redirect(url_for('pfeffer.resultado_pfeffer'))

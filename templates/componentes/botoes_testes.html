@@ -1,0 +1,32 @@
+<div class="navegacao-testes" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+    <h3 style="text-align: center; margin-bottom: 15px;">📋 Outros Testes Disponíveis</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+        <a href="{{ url_for('meem_g.aplicar_meem_g') }}" class="btn-teste" style="background: #3498db;">MEEM-G</a>
+        <a href="{{ url_for('moca_b.aplicar_moca_b') }}" class="btn-teste" style="background: #2ecc71;">MOCA-B</a>
+        <a href="{{ url_for('moca.aplicar_moca') }}" class="btn-teste" style="background: #e74c3c;">MOCA</a>
+        <a href="{{ url_for('pfeffer.aplicar_pfeffer') }}" class="btn-teste" style="background: #f39c12;">PFEFFER</a>
+        <a href="{{ url_for('relogio.aplicar_relogio') }}" class="btn-teste" style="background: #9b59b6;">RELÓGIO</a>
+        <a href="{{ url_for('acer.aplicar_acer') }}" class="btn-teste" style="background: #1abc9c;">ADDENBROKE</a>
+    </div>
+    
+    <div style="text-align: center; margin-top: 15px;">
+        <a href="{{ url_for('pagina_inicial.pagina_inicial') }}" class="btn-voltar" style="background: #6c757d; padding: 10px 15px; color: white; text-decoration: none; border-radius: 6px;">
+            🏠 Página Inicial
+        </a>
+    </div>
+</div>
+
+<style>
+.btn-teste {
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+.btn-teste:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+</style>

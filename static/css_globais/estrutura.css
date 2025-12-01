@@ -1,36 +1,44 @@
+/* FUNDO DO BODY COM GRADIENTE ROXO */
+body {
+    background: linear-gradient(135deg, #6a11cb 0%, #6a11cb 100%);
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 /* Bloco principal */
 form {
     background-color: #fff;
     padding: 30px 35px;
     border-radius: 14px;
-    box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
     max-width: 700px;
-    margin: 35px auto 55px;
+    margin: 20px auto 40px;
 }
 
 /* Títulos */
 h1 {
     text-align: center;
-    color: #1a2732;
+    color: #ffffff;
     font-weight: 700;
     font-size: 29px;
-    margin-bottom: 32px;
     letter-spacing: 1px;
     text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 h2 {
-    color: #2e4057;
+    color: #4d0a9e;
     margin-bottom: 15px;
     font-weight: 600;
     font-size: 21px;
-    border-bottom: 2px solid #a4b0be;
+    border-bottom: 2px solid #8a2be2;
     padding-bottom: 8px;
 }
 
 .dados-paciente {
-    background: #f0f4fb;
-    border: 1.5px solid #ced6e0;
+    background: #f8f4ff;
+    border: 1.5px solid #e0d6f0;
     border-radius: 8px;
     padding: 14px 25px;
     margin-bottom: 40px;
@@ -39,7 +47,7 @@ h2 {
 .dados-paciente h2 {
     border-bottom: none;
     margin-bottom: 5px;
-    color: #276468;
+    color: #6a11cb;
 }
 
 fieldset {
@@ -49,15 +57,15 @@ fieldset {
 }
 
 legend {
-    background: #dde7fa;
-    color: #1d3457;
+    background: #e6e6fa;
+    color: #4d0a9e;
     font-weight: bold;
     font-size: 17px;
     letter-spacing: 0.5px;
-    padding: 6px 15px;
+    padding: 8px 16px;
     border-radius: 7px;
     margin-bottom: 18px;
-    border: 1px solid #cdd0e5;
+    border: 1px solid #8a2be2;
     margin-left: 0;
     margin-right: 0;
     display: inline-block;
@@ -68,10 +76,10 @@ legend {
     gap: 18px;
     margin-bottom: 19px;
     align-items: flex-end;
-    background-color: #f7f9fb;
+    background-color: #faf8ff;
     border-radius: 6px;
     padding: 11px 13px 12px 13px;
-    border: 1px solid #e3e3f6;
+    border: 1px solid #ece3ff;
 }
 
 .flex-item {
@@ -89,7 +97,7 @@ legend {
 .flex-item label {
     margin-bottom: 5px;
     font-weight: 600;
-    color: #34495e;
+    color: #4d0a9e;
     font-size: 14px;
     letter-spacing: 0.01em;
 }
@@ -98,13 +106,13 @@ input[type="text"],
 input[type="number"],
 textarea {
     width: 100%;
-    padding: 7px 10px;
-    border: 1.2px solid #abb8c3;
+    padding: 10px 12px;
+    border: 1.5px solid #8a2be2;
     border-radius: 6px;
     box-sizing: border-box;
     font-size: 14px;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: #2c3e50;
+    color: #4d0a9e;
     transition: border-color 0.3s ease;
     resize: vertical;
 }
@@ -113,6 +121,7 @@ textarea {
     min-height: 38px;
     max-height: 68px;
     font-size: 13.5px;
+    background: #f8f4ff;
 }
 
 input[type="number"] {
@@ -123,19 +132,23 @@ input[type="number"] {
     font-size: 17px;
     font-weight: bold;
     padding-right: 0;
+    background: #f8f4ff;
+    border: 2px solid #6a11cb;
 }
 
 input[type="text"]:focus,
 input[type="number"]:focus,
 textarea:focus {
-    border-color: #3498db;
+    border-color: #6a11cb;
     outline: none;
+    box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
 }
 
+/* BOTÕES ROXOS */
 button {
-    background-color: #3498db;
+    background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
     color: white;
-    padding: 14px 20px;
+    padding: 16px 24px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -144,34 +157,61 @@ button {
     width: 100%;
     font-weight: 700;
     letter-spacing: 0.05em;
-    box-shadow: 0 2px 8px rgba(20,60,130,0.07);
-    transition: background-color 0.3s;
+    box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background-color: #2980b9;
+    background: linear-gradient(135deg, #4d0a9e 0%, #6a11cb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
+}
+
+a.btn-style {
+    background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
+    color: white;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 30px;
+    width: 100%;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+a.btn-style:hover {
+    background: linear-gradient(135deg, #4d0a9e 0%, #6a11cb 100%);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
 }
 
 /* Estilos para legendas informativas */
 .legenda-informativa {
-    color: #888;
+    color: #666;
     font-size: 13px;
+    font-style: italic;
 }
 
 /* Estilos para rótulos de pontos com cor clara */
 .rotulo-pontos-claro {
-    color: #eee;
-}
-
-/* Estilos para rótulos de pontos ocultos */
-.rotulo-pontos-oculto {
-    color: #fff;
-    visibility: hidden;
+    color: #8a2be2;
+    font-weight: 600;
 }
 
 /* Estilos para texto pequeno com cor específica */
 .texto-pequeno-cor {
-    color: #257;
+    color: #4d0a9e;
+    font-size: 12px;
 }
 
 /* Estilos para campos de pontuação */
@@ -183,6 +223,9 @@ button:hover {
     font-size: 17px;
     font-weight: bold;
     padding-right: 0;
+    background: #f8f4ff;
+    border: 2px solid #6a11cb;
+    border-radius: 6px;
 }
 
 /* Estilos para espaçamento superior */
@@ -190,16 +233,13 @@ button:hover {
     margin-top: 9px;
 }
 
-
-
-
 /* Estilos para o container do checkbox */
 .checkbox-container {
     margin: 15px 0;
-    padding: 12px;
-    background-color: #f8f9fa;
-    border-radius: 6px;
-    border: 1px solid #e9ecef;
+    padding: 15px;
+    background-color: #f8f4ff;
+    border-radius: 8px;
+    border: 1px solid #e0d6f0;
 }
 
 .checkbox-group {
@@ -214,18 +254,19 @@ button:hover {
     align-items: center;
     cursor: pointer;
     font-size: 14px;
-    color: #495057;
+    color: #4d0a9e;
     font-weight: 500;
-    padding: 8px 12px;
-    border-radius: 4px;
+    padding: 10px 15px;
+    border-radius: 6px;
     transition: all 0.3s ease;
     background-color: white;
-    border: 1px solid #dee2e6;
+    border: 1px solid #8a2be2;
 }
 
 .checkbox-label:hover {
-    background-color: #e9ecef;
-    border-color: #3498db;
+    background-color: #ece3ff;
+    border-color: #6a11cb;
+    transform: translateY(-2px);
 }
 
 .checkbox-animal {
@@ -233,8 +274,8 @@ button:hover {
 }
 
 .checkbox-animal:checked + .checkmark {
-    background-color: #3498db;
-    border-color: #3498db;
+    background-color: #6a11cb;
+    border-color: #6a11cb;
 }
 
 .checkbox-animal:checked + .checkmark:after {
@@ -243,12 +284,12 @@ button:hover {
 
 .checkmark {
     position: relative;
-    height: 18px;
-    width: 18px;
+    height: 20px;
+    width: 20px;
     background-color: white;
-    border: 2px solid #adb5bd;
-    border-radius: 3px;
-    margin-right: 8px;
+    border: 2px solid #8a2be2;
+    border-radius: 4px;
+    margin-right: 10px;
     transition: all 0.3s ease;
 }
 
@@ -256,10 +297,10 @@ button:hover {
     content: "";
     position: absolute;
     display: none;
-    left: 5px;
+    left: 6px;
     top: 2px;
-    width: 4px;
-    height: 8px;
+    width: 5px;
+    height: 10px;
     border: solid white;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
@@ -267,12 +308,108 @@ button:hover {
 
 /* Estilo para checkbox selecionado */
 .checkbox-animal:checked ~ span:last-child {
-    color: #3498db;
-    font-weight: 600;
+    color: #6a11cb;
+    font-weight: 700;
 }
 
 .checkbox-label.selected {
-    background-color: #e3f2fd;
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    background-color: #e6e6fa;
+    border-color: #6a11cb;
+    box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+}
+
+/* Header com logo CONECTA PREFV */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    color: #6a11cb;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.logo-subtitle {
+    color: #4d0a9e;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Mensagens flash */
+.messages {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #6a11cb;
+}
+
+/* Instruções box */
+.instrucoes-box {
+    background: #e6e6fa;
+    border-left: 4px solid #6a11cb;
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    color: #4d0a9e;
+    font-weight: 500;
+}
+
+/* Seções com borda roxa */
+.secao-roxo {
+    border: 1px solid #8a2be2;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    background: #f8f4ff;
+}
+
+/* Badges roxos */
+.badge-roxo {
+    display: inline-block;
+    background: #6a11cb;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .flex-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .flex-item {
+        width: 100%;
+    }
+    
+    form {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    .checkbox-group {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

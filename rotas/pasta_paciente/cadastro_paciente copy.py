@@ -11,8 +11,17 @@ def validar_cpf(cpf):
 
 @bp_cadastro.route('/', methods=['GET', 'POST'])
 def cadastro():
-    proximo_teste = request.args.get('proximo', 'meem_g.aplicar_meem_g')
-    session['proximo_teste'] = proximo_teste
+    # ✅ CORREÇÃO: SEMPRE pegar da URL, não usar valor padrão fixo
+    proximo_teste = request.args.get('proximo')
+    
+    # ✅ SE não veio da URL, tenta da sessão
+    if not proximo_teste:
+        proximo_teste = session.get('proximo_teste', 'meem_g.aplicar_meem_g')
+    else:
+        # ✅ SE veio da URL, atualiza a sessão
+        session['proximo_teste'] = proximo_teste
+    
+    print(f"🔍 DEBUG - Próximo teste: {proximo_teste}")
     
     if request.method == 'POST':
         nome = request.form.get('nome')
@@ -34,6 +43,8 @@ def cadastro():
             paciente_id = cursor.lastrowid
             session['paciente_id'] = paciente_id
             conn.close()
+            
+            print(f"🔍 DEBUG - Redirecionando para: {proximo_teste}")
             flash('Cadastro realizado com sucesso!', 'success')
             return redirect(url_for(proximo_teste))
             
