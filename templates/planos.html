@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos e Valores - ConectaPrev</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2a0751 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header img {
+            max-width: 200px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #6a11cb;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .planos-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .plano-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .plano-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .plano-essencial {
+            border-color: #28a745;
+        }
+
+        .plano-avancado {
+            border-color: #007bff;
+        }
+
+        .plano-premium {
+            border-color: #ffc107;
+        }
+
+        .plano-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .plano-titulo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .plano-essencial .plano-titulo { color: #28a745; }
+        .plano-avancado .plano-titulo { color: #007bff; }
+        .plano-premium .plano-titulo { color: #ffc107; }
+
+        .plano-preco {
+            font-size: 36px;
+            font-weight: 800;
+            margin: 15px 0;
+        }
+
+        .plano-periodo {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .plano-vantagens {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .plano-vantagens li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .plano-vantagens li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .btn-plano {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .btn-essencial { background: #28a745; color: white; }
+        .btn-avancado { background: #007bff; color: white; }
+        .btn-premium { background: #ffc107; color: black; }
+
+        .btn-plano:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .comparativo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparativo-table th {
+            background: #6a11cb;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparativo-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparativo-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .feature-yes {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .feature-no {
+            color: #dc3545;
+            opacity: 0.5;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            background: #6c757d;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .btn-voltar:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .contato-info {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .contato-info h3 {
+            color: #6a11cb;
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1da851;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .planos-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .plano-card {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .comparativo-table {
+                font-size: 14px;
+            }
+            
+            .comparativo-table th,
+            .comparativo-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{ url_for('static', filename='images/logo_conecta.jpg') }}" 
+                 alt="CONECTA PREFV">
+            <h1>PLANOS E VALORES</h1>
+            <p>Escolha o plano ideal para sua clínica ou instituição</p>
+        </div>
+
+        <div class="planos-container">
+            <!-- Plano Essencial -->
+            <div class="plano-card plano-essencial">
+                <div class="plano-header">
+                    <div class="plano-titulo">Plano Essencial</div>
+                    <div class="plano-preco">R$ 149,90</div>
+                    <div class="plano-periodo">por mês</div>
+                </div>
+                <ul class="plano-vantagens">
+                    <li>Para clínicas pequenas ou médicos individuais</li>
+                    <li>2 acessos simultâneos</li>
+                    <li>Profissionais individuais</li>
+                    <li>Todos os testes disponíveis</li>
+                    <li>Suporte por email</li>
+                </ul>
+                <a href="#contato" class="btn-plano btn-essencial">CONTRATAR ESSENCIAL</a>
+            </div>
+
+            <!-- Plano Avançado -->
+            <div class="plano-card plano-avancado">
+                <div class="plano-header">
+                    <div class="plano-titulo">Plano Avançado</div>
+                    <div class="plano-preco">R$ 299,00</div>
+                    <div class="plano-periodo">por mês</div>
+                </div>
+                <ul class="plano-vantagens">
+                    <li>Para clínicas médias e hospitais</li>
+                    <li>Maior fluxo de pacientes</li>
+                    <li>Mais testes e relatórios</li>
+                    <li>10 acessos simultâneos</li>
+                    <li>Suporte prioritário</li>
+                    <li>Ferramentas de otimização</li>
+                </ul>
+                <a href="#contato" class="btn-plano btn-avancado">CONTRATAR AVANÇADO</a>
+            </div>
+
+            <!-- Plano Premium -->
+            <div class="plano-card plano-premium">
+                <div class="plano-header">
+                    <div class="plano-titulo">Plano Premium</div>
+                    <div class="plano-preco">R$ 999,99</div>
+                    <div class="plano-periodo">por mês</div>
+                </div>
+                <ul class="plano-vantagens">
+                    <li>Para centros especializados</li>
+                    <li>Acesso ilimitado</li>
+                    <li>Monitoramento completo</li>
+                    <li>Uso por múltiplos profissionais</li>
+                    <li>Suporte 24/7</li>
+                    <li>Baixo custo-benefício</li>
+                    <li>Relatórios personalizados</li>
+                </ul>
+                <a href="#contato" class="btn-plano btn-premium">CONTRATAR PREMIUM</a>
+            </div>
+        </div>
+
+        <!-- Tabela Comparativa -->
+        <table class="comparativo-table">
+            <thead>
+                <tr>
+                    <th>RECURSOS</th>
+                    <th>ESSENCIAL</th>
+                    <th>AVANÇADO</th>
+                    <th>PREMIUM</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Preço mensal</td>
+                    <td>R$ 149,90</td>
+                    <td>R$ 299,00</td>
+                    <td>R$ 999,99</td>
+                </tr>
+                <tr>
+                    <td>Acessos simultâneos</td>
+                    <td>2</td>
+                    <td>10</td>
+                    <td>Ilimitado</td>
+                </tr>
+                <tr>
+                    <td>Perfil indicado</td>
+                    <td>Clínicas pequenas</td>
+                    <td>Clínicas médias/Hospitais</td>
+                    <td>Grandes instituições</td>
+                </tr>
+                <tr>
+                    <td>Todos os testes</td>
+                    <td class="feature-yes">✓</td>
+                    <td class="feature-yes">✓</td>
+                    <td class="feature-yes">✓</td>
+                </tr>
+                <tr>
+                    <td>Relatórios avançados</td>
+                    <td class="feature-no">✗</td>
+                    <td class="feature-yes">✓</td>
+                    <td class="feature-yes">✓</td>
+                </tr>
+                <tr>
+                    <td>Suporte prioritário</td>
+                    <td class="feature-no">✗</td>
+                    <td class="feature-yes">✓</td>
+                    <td class="feature-yes">✓</td>
+                </tr>
+                <tr>
+                    <td>Monitoramento</td>
+                    <td class="feature-no">✗</td>
+                    <td class="feature-no">✗</td>
+                    <td class="feature-yes">✓</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Seção de Contato -->
+        <div class="contato-info" id="contato">
+            <h3>📞 INTERESSADO EM ALGUM PLANO?</h3>
+            <p>Entre em contato conosco para contratar ou tirar dúvidas:</p>
+            
+            <a href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre os planos do ConectaPrev" 
+               target="_blank" 
+               class="whatsapp-btn">
+               📱 FALE CONOSCO NO WHATSAPP
+            </a>
+            
+            <p style="margin-top: 20px; color: #666; font-size: 14px;">
+                Email: contato@conectaprev.com<br>
+                Telefone: (11) 9999-9999
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="{{ url_for('pagina_inicial') }}" class="btn-voltar">
+                ← VOLTAR PARA PÁGINA INICIAL
+            </a>
+        </div>
+    </div>
+</body>
+</html>

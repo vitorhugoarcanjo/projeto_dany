@@ -75,6 +75,13 @@ def pos_login():
         return redirect(url_for('pagina_inicial'))
     return render_template('pagina_pos_login/pos_login.html')
 
+
+
+@app.route('/planos')
+def pagina_planos():
+    return render_template('planos.html')
+
+
 if __name__ == '__main__':
     criar_tabelas()  # Só essa função agora
     app.run(debug=True)
