@@ -121,6 +121,22 @@ def criar_tabelas():
     )
     ''')
 
+        # NOVA TABELA: médicos
+    # No seu config/database.py, adicione a coluna is_admin
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS medicos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome_completo TEXT NOT NULL,
+        login TEXT UNIQUE NOT NULL,
+        senha_hash TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        cpf TEXT UNIQUE NOT NULL,
+        data_nascimento DATE NOT NULL,
+        is_admin BOOLEAN DEFAULT 0,  -- NOVA COLUNA: 0 = médico comum, 1 = administrador
+        data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    ''')
+
     conn.commit()
     conn.close()
     print(f"✅ Tabelas verificadas! Banco em: {conexao_banco}")

@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='pagina_inicial.css') }}">
-
+    <title>Painel de Testes - ConectaPrev</title>
     <style>
-        /* RESET DE MARGENS PARA EVITAR ESPAÇAMENTOS EXCESSIVOS */
         * {
             margin: 0;
             padding: 0;
@@ -51,29 +49,61 @@
             transform: scale(1.1);
         }
         
-        /* Header com logo como imagem - CORRIGIDO */
-        .header-logo {
+        .header-painel {
             text-align: center;
-            padding: 20px 25px;
+            padding: 15px 25px;
             max-width: 900px;
-            margin: 0 auto 30px auto; /* Reduzi a margem inferior */
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
         }
 
-        .header-logo img {
-            max-width: 350px;
+        .logo-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-painel img {
+            max-width: 80px;
             height: auto;
-            border-radius: 20px;
-            object-fit: contain;
-            margin-bottom: 15px; /* Margem apenas entre logo e título */
+            border-radius: 10px;
         }
 
-        .header-logo h1 {
+        .header-painel h1 {
             color: white;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            font-size: 28px;
-            margin: 0; /* REMOVE MARGEM PADRÃO DO H1 */
-            padding: 0;
-            line-height: 1.2;
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .user-info {
+            color: white;
+            text-align: right;
+        }
+
+        .user-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .container {
@@ -96,31 +126,6 @@
             letter-spacing: 1px;
         }
 
-        .container_sobre {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            line-height: 1.6;
-        }
-
-        .container_sobre p {
-            color: #4d0a9e;
-            font-size: 16px;
-            margin: 0;
-            text-align: justify;
-        }
-
-        .container_sobre strong {
-            color: #6a11cb;
-            font-size: 18px;
-            display: block;
-            margin-bottom: 15px;
-        }
-
-        /* Estilos para os botões de teste */
         .teste-btn {
             display: block;
             background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
@@ -144,21 +149,22 @@
             box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
             }
             
-            .header-logo img {
-                max-width: 250px;
+            .header-painel {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
             }
             
-            .header-logo h1 {
-                font-size: 22px;
+            .user-info {
+                text-align: center;
             }
             
-            .container, .container_sobre {
+            .container {
                 padding: 20px;
                 margin: 20px auto;
             }
@@ -174,24 +180,58 @@
             }
         }
     </style>
-
-    
 </head>
-
 <body>
     <div id="alerta">
         <span id="mensagem-alerta"></span>
         <button onclick="document.getElementById('alerta').style.display='none'">Ok</button>
     </div>
 
-    <div class="header-logo">
-        <img src="{{ url_for('static', filename='images/logo_conecta.jpg') }}" 
-            alt="CONECTA PREFV" class="logo-image">
-            <h1>BEM VINDOS AO CONECTA PREV</h1>
+    <div class="header-painel">
+        <div class="logo-info">
+            <img src="{{ url_for('static', filename='images/logo_conecta.jpg') }}" 
+                alt="CONECTA PREFV">
+            <h1>PAINEL DE TESTES</h1>
+        </div>
+
+        <!-- Adicione isso no header-painel, após o botão SAIR -->
+        <div class="user-info">
+            <p>Bem-vindo, <strong>{{ session.get('medico_nome', 'Usuário') }}</strong></p>
+            <p>
+                {% if session.get('is_admin') %}
+                <span style="background: gold; color: black; padding: 2px 8px; border-radius: 10px; font-size: 12px;">
+                    👑 ADMINISTRADOR
+                </span>
+                {% else %}
+                <span style="background: #6a11cb; color: white; padding: 2px 8px; border-radius: 10px; font-size: 12px;">
+                    👨‍⚕️ MÉDICO
+                </span>
+                {% endif %}
+            </p>
+            
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                {% if session.get('is_admin') %}
+                <a href="{{ url_for('login.gerenciar_medicos') }}" 
+                class="btn-logout" 
+                style="background: rgba(255, 193, 7, 0.8); color: black; text-decoration: none;">
+                👑 GERENCIAR MÉDICOS
+                </a>
+                {% endif %}
+                
+                <a href="{{ url_for('login.cadastro_medico') }}" 
+                class="btn-logout" 
+                style="background: rgba(106, 17, 203, 0.7); color: white; text-decoration: none;">
+                + NOVO MÉDICO
+                </a>
+                
+                <a href="{{ url_for('login.logout') }}" class="btn-logout">SAIR</a>
+            </div>
+        </div>
+
     </div>
 
     <div class="container">
-        <h1>INICIAR TESTES</h1>
+        <h1>SELECIONE O TESTE</h1>
         <a href="{{ url_for('cadastro.cadastro', proximo='meem_g.aplicar_meem_g') }}" class="teste-btn">
             MEEM-G
         </a>
@@ -217,26 +257,19 @@
         </a>
     </div>
 
+    <script>
+        function mostrarAlerta(mensagem) {
+            const alerta = document.getElementById('alerta');
+            document.getElementById('mensagem-alerta').textContent = mensagem;
+            alerta.style.display = 'block';
+            setTimeout(() => { alerta.style.display = 'none'; }, 3000);
+        }
 
-    <div class="container_sobre">
-        <p><strong>Sobre o site:</strong><br>O site ConectaPrev foi desenvolvido com o objetivo de facilitar o rastreamento precoce do Parkinson e do Alzheimer, duas das doenças neurodegenerativas mais comuns e que afetam milhões de pessoas em todo o mundo. A plataforma busca promover a detecção antecipada de sinais e sintomas, contribuindo para o acompanhamento, prevenção e melhoria da qualidade de vida dos pacientes e seus familiares.
-    <br><br>Por meio de ferramentas interativas e questionários de avaliação baseados em evidências científicas, o site permite que profissionais da saúde identifiquem 
-    indicadores de risco para o cuidado e acompanhamento médico. O ConectaPrev tem como missão tornar o rastreamento mais acessível, rápido e confiável, unindo tecnologia e saúde para apoiar o diagnóstico e o tratamento dessas condições neurológicas.</p>
-    </div>
-
-<script>
-    function mostrarAlerta(mensagem) {
-        const alerta = document.getElementById('alerta');
-        document.getElementById('mensagem-alerta').textContent = mensagem;
-        alerta.style.display = 'block';
-        setTimeout(() => { alerta.style.display = 'none'; }, 3000);
-    }
-
-    {% with messages = get_flashed_messages(with_categories=false) %}
-    {% if messages %}
-        mostrarAlerta("{{ messages[0] }}");
-    {% endif %}
-    {% endwith %}
-</script>
+        {% with messages = get_flashed_messages(with_categories=false) %}
+        {% if messages %}
+            mostrarAlerta("{{ messages[0] }}");
+        {% endif %}
+        {% endwith %}
+    </script>
 </body>
 </html>

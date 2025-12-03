@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='pagina_inicial.css') }}">
-
+    <title>ConectaPrev - Rastreamento Parkinson e Alzheimer</title>
     <style>
-        /* RESET DE MARGENS PARA EVITAR ESPAÇAMENTOS EXCESSIVOS */
         * {
             margin: 0;
             padding: 0;
@@ -20,43 +18,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        #alerta {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            z-index: 1000;
-            display: none;
-        }
-        
-        #alerta button {
-            background: transparent;
-            border: none;
-            color: white;
-            font-weight: bold;
-            margin-left: 15px;
-            cursor: pointer;
-        }
-
-        a {
-            background-color: rgb(55, 12, 95);
-            transition: transform 0.7s ease;
-        }
-
-        a:hover {
-            transform: scale(1.1);
-        }
-        
-        /* Header com logo como imagem - CORRIGIDO */
         .header-logo {
             text-align: center;
-            padding: 20px 25px;
+            padding: 20px;
             max-width: 900px;
-            margin: 0 auto 30px auto; /* Reduzi a margem inferior */
+            margin: 0 auto 30px auto;
         }
 
         .header-logo img {
@@ -64,42 +30,48 @@
             height: auto;
             border-radius: 20px;
             object-fit: contain;
-            margin-bottom: 15px; /* Margem apenas entre logo e título */
+            margin-bottom: 20px;
         }
 
         .header-logo h1 {
             color: white;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             font-size: 28px;
-            margin: 0; /* REMOVE MARGEM PADRÃO DO H1 */
+            margin: 0;
             padding: 0;
             line-height: 1.2;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        .btn-acesso {
+            display: block;
+            background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 300px;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+            transition: all 0.3s ease;
             text-align: center;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
         }
 
-        .container h1 {
-            color: #6a11cb;
-            font-size: 24px;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #8a2be2;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .btn-acesso:hover {
+            background: linear-gradient(135deg, #4d0a9e 0%, #6a11cb 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
         }
 
         .container_sobre {
             max-width: 900px;
-            margin: 30px auto;
-            padding: 25px;
+            margin: 40px auto;
+            padding: 30px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -120,31 +92,13 @@
             margin-bottom: 15px;
         }
 
-        /* Estilos para os botões de teste */
-        .teste-btn {
-            display: block;
-            background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            margin: 12px auto;
-            width: 80%;
-            max-width: 300px;
-            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
-            transition: all 0.3s ease;
+        .login-info {
             text-align: center;
+            color: white;
+            margin: 20px 0;
+            font-size: 14px;
         }
 
-        .teste-btn:hover {
-            background: linear-gradient(135deg, #4d0a9e 0%, #6a11cb 100%);
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
-        }
-
-        /* Responsividade */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -158,85 +112,38 @@
                 font-size: 22px;
             }
             
-            .container, .container_sobre {
+            .container_sobre {
                 padding: 20px;
-                margin: 20px auto;
+                margin: 30px auto;
             }
             
-            .container h1 {
-                font-size: 20px;
-            }
-            
-            .teste-btn {
+            .btn-acesso {
                 width: 90%;
-                padding: 14px 20px;
-                font-size: 15px;
+                padding: 16px 25px;
+                font-size: 16px;
             }
         }
     </style>
-
-    
 </head>
-
 <body>
-    <div id="alerta">
-        <span id="mensagem-alerta"></span>
-        <button onclick="document.getElementById('alerta').style.display='none'">Ok</button>
-    </div>
-
     <div class="header-logo">
         <img src="{{ url_for('static', filename='images/logo_conecta.jpg') }}" 
             alt="CONECTA PREFV" class="logo-image">
-            <h1>BEM VINDOS AO CONECTA PREV</h1>
+        <h1>BEM VINDOS AO CONECTA PREV</h1>
     </div>
 
-    <div class="container">
-        <h1>INICIAR TESTES</h1>
-        <a href="{{ url_for('cadastro.cadastro', proximo='meem_g.aplicar_meem_g') }}" class="teste-btn">
-            MEEM-G
-        </a>
-        
-        <a href="{{ url_for('cadastro.cadastro', proximo='moca_b.aplicar_moca_b') }}" class="teste-btn">
-            MOCA-B
-        </a>
-
-        <a href="{{ url_for('cadastro.cadastro', proximo='moca.aplicar_moca') }}" class="teste-btn">
-            MOCA
-        </a>
-
-        <a href="{{ url_for('cadastro.cadastro', proximo='pfeffer.aplicar_pfeffer') }}" class="teste-btn">
-            PFEFFER
-        </a>
-
-        <a href="{{ url_for('cadastro.cadastro', proximo='relogio.aplicar_relogio') }}" class="teste-btn">
-            TESTE DO RELÓGIO
-        </a>
-
-        <a href="{{ url_for('cadastro.cadastro', proximo='acer.aplicar_acer') }}" class="teste-btn">
-            ACE-R
-        </a>
+    <div class="login-info">
+        <p>Acesso restrito para profissionais de saúde</p>
     </div>
 
+    <a href="{{ url_for('login.login') }}" class="btn-acesso">
+        ACESSAR SISTEMA
+    </a>
 
     <div class="container_sobre">
         <p><strong>Sobre o site:</strong><br>O site ConectaPrev foi desenvolvido com o objetivo de facilitar o rastreamento precoce do Parkinson e do Alzheimer, duas das doenças neurodegenerativas mais comuns e que afetam milhões de pessoas em todo o mundo. A plataforma busca promover a detecção antecipada de sinais e sintomas, contribuindo para o acompanhamento, prevenção e melhoria da qualidade de vida dos pacientes e seus familiares.
     <br><br>Por meio de ferramentas interativas e questionários de avaliação baseados em evidências científicas, o site permite que profissionais da saúde identifiquem 
     indicadores de risco para o cuidado e acompanhamento médico. O ConectaPrev tem como missão tornar o rastreamento mais acessível, rápido e confiável, unindo tecnologia e saúde para apoiar o diagnóstico e o tratamento dessas condições neurológicas.</p>
     </div>
-
-<script>
-    function mostrarAlerta(mensagem) {
-        const alerta = document.getElementById('alerta');
-        document.getElementById('mensagem-alerta').textContent = mensagem;
-        alerta.style.display = 'block';
-        setTimeout(() => { alerta.style.display = 'none'; }, 3000);
-    }
-
-    {% with messages = get_flashed_messages(with_categories=false) %}
-    {% if messages %}
-        mostrarAlerta("{{ messages[0] }}");
-    {% endif %}
-    {% endwith %}
-</script>
 </body>
 </html>

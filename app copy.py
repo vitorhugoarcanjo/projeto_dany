@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, session
+from flask import Flask, render_template
 
 # IMPORTAÇÃO DA CHAVE
 from utils.config import get_secret_key
@@ -34,8 +34,8 @@ from rotas.pasta_consulta_medica.pasta_addenbroke_ace.teste_addenbroke_ace impor
 app = Flask(__name__)
 app.secret_key = get_secret_key()
 
-# LOGIN (sem url_prefix, para usar '/login' diretamente)
-app.register_blueprint(bp_login)
+# LOGIN
+app.register_blueprint(bp_login, url_prefix='/login')
 
 # PÁGINA INICIAL
 app.register_blueprint(bp_pagina_inicial, url_prefix='/pagina_inicial')
@@ -63,17 +63,8 @@ app.register_blueprint(bp_acer, url_prefix='/acer')
 
 @app.route('/')
 def pagina_inicial():
-    # Se já está logado, redireciona para página pós-login
-    if session.get('medico_logado'):
-        return redirect(url_for('pos_login'))
     return render_template('pagina_inicial.html')
 
-@app.route('/pos_login')
-def pos_login():
-    # Verifica se está logado
-    if not session.get('medico_logado'):
-        return redirect(url_for('pagina_inicial'))
-    return render_template('pagina_pos_login/pos_login.html')
 
 if __name__ == '__main__':
     criar_tabelas()  # Só essa função agora
